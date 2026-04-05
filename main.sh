@@ -138,12 +138,28 @@ symlink_with_stow() {
 # Main workflow
 ################################################################################
 
+check_ssh_keys() {
+	if [ ! -d "$HOME/.ssh" ] || [ -z "$(ls -A $HOME/.ssh/id_* 2>/dev/null)" ]; then
+		printf "${STY_RED}${STY_BOLD}ERROR: SSH keys required in $HOME/.ssh/${STY_RST}\n"
+		printf "${STY_RED}This fork has private git submodules that need SSH authentication.${STY_RST}\n"
+		exit 1
+	fi
+}
+
 main() {
 	printf "\n${STY_BOLD}${STY_CYAN}===== PERSONAL FORK SETUP (end4 + ov-*) =====${STY_RST}\n\n"
 
+	check_ssh_keys
+
+	# Ensure all git submodules are initialized (each independently, so one failure doesn't block the rest)
+	printf "${STY_CYAN}[$0]: Initializing git submodules...${STY_RST}\n"
+	git submodule init
+	git submodule foreach --recursive 'git submodule update --init || true'
+	git submodule update --init --recursive || printf "${STY_YELLOW}[$0]: Some submodules failed to initialize. Continuing anyway.${STY_RST}\n"
+
 	# Step 1: Run end4's full setup
 	printf "${STY_BOLD}${STY_CYAN}[1/3] Running end4 installer...${STY_RST}\n"
-	v ./setup install
+	SKIP_ALLFILES=true v ./setup install
 
 	# Step 2: Install personal packages and additional setup
 	printf "\n${STY_BOLD}${STY_CYAN}[2/3] Installing personal packages and configurations...${STY_RST}\n"
@@ -153,6 +169,13 @@ main() {
 	v install_qwerty_fr
 	v install_npm_globals
 	v install_zsh_default
+
+	# Clean up directories that end4's installer copied as real files,
+	# so stow can replace them with symlinks to the repo (which has
+	# properly checked-out submodules like shapes/).
+	printf "${STY_CYAN}[$0]: Cleaning copied configs so stow can symlink from repo...${STY_RST}\n"
+	rm -rf "$HOME/.config/quickshell"
+	rm -rf "$HOME/.config/hypr"
 
 	# Step 3: Stow dotfiles
 	printf "\n${STY_BOLD}${STY_CYAN}[3/3] Creating dotfile symlinks...${STY_RST}\n"

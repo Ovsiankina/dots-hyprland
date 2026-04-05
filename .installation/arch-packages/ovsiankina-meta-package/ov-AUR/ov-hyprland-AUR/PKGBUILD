@@ -7,11 +7,10 @@ license=(None)
 depends=(
 	## -------------------- Hyprland & Wayland Stack --------------------
 	aylurs-gtk-shell-git # Shell for GTK theming and customization | Hyprland
-	quickshell-git       # Flexible toolkit for making desktop shells with QtQuick [already listed]
 	adw-gtk-theme-git    # libadwaita GTK theme
 	xwayland-run         # Utilities for running Xwayland
-	quickshell-git       # Flexible toolkit for desktop shells with QtQuick | Wayland
 
 	## -------------------- No longer used --------------------
-	# ags-hyprpanel-git # Bar/Panel for Hyprland with extensive customizability | Hyprland
+	# quickshell-git     # Already installed by end4's setup
+	# ags-hyprpanel-git  # Bar/Panel for Hyprland with extensive customizability | Hyprland
 )

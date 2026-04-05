@@ -15,3 +15,6 @@ __pycache__/
 
 # Emacs auto backup file
 *~
+
+# ZSH history
+dots/.zsh/.zsh_history
