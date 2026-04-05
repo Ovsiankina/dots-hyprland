@@ -1,0 +1,27 @@
+pkgname=ovsiankina-hyprland
+pkgver=1.0
+pkgrel=1
+pkgdesc='Ovsiankina Meta-package for Hyprland & Wayland Stack Dependencies'
+arch=(any)
+license=(None)
+depends=(
+
+	## -------------------- Hyprland & Wayland Stack --------------------
+	grim        # Screenshot utility for Wayland | Wayland/Hyprland
+	hypridle    # Hyprland idle daemon | Hyprland
+	hyprland    # Dynamic tiling Wayland compositor | Hyprland
+	hyprlock    # Hyprland native lock screen | Hyprland
+	hyprpaper   # Fast wallpaper utility with IPC | Hyprland
+	hyprpicker  # Hyprland-native color picker | Hyprland
+	hyprshot    # Screenshot utility for Hyprland | Hyprland
+	slurp       # Select region in Wayland outputs | Wayland
+	qt5-wayland # Qt5 Wayland support
+	upower      # Power device daemon
+
+	## -------------------- No longer used --------------------
+	# notification-daemon # Desktop notifications service | Audio/Video
+	# swww                 # Animated wallpapers for Wayland | Wayland
+	# mako                 # Lightweight notification daemon for Wayland | Wayland
+	# waybar               # Highly customizable bar for Wayland | Wayland
+	# wofi                 # Application launcher for Wayland compositors | Wayland
+)

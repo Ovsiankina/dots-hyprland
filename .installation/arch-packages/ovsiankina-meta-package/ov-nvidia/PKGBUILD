@@ -1,0 +1,11 @@
+pkgname=ovsiankina-nvidia
+pkgver=1.0
+pkgrel=1
+pkgdesc='Ovsiankina meta-package for systems using NVIDIA GPUs'
+arch=(any)
+license=(None)
+depends=(
+	## -------------------- NVIDIA --------------------
+	nvidia-open  # NVIDIA open kernel modules | Video/Drivers
+	nvidia-utils # NVIDIA driver utilities | Video/Drivers
+)

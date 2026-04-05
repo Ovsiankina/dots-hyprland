@@ -1,0 +1,18 @@
+pkgname=ovsiankina-audio
+pkgver=1.0
+pkgrel=1
+pkgdesc='Ovsiankina Meta-package for audio'
+arch=(any)
+license=(None)
+depends=(
+	## -------------------- Audio --------------------
+	brightnessctl  # Control screen brightness | Audio/Video/Hardware
+	cava           # Console-based audio visualizer | Audio/Visualization
+	pavucontrol    # PulseAudio volume control GUI | Audio
+	pipewire-pulse # Low-latency audio/video router and processor - PulseAudio replacement
+	rtkit          # Realtime Policy and Watchdog Daemon | Audio
+	sof-firmware   # Sound Open Firmware
+	alsa-ucm-conf  # ALSA Use Case Manager configuration (and topologies)
+	## No longer used
+	# pulseaudio # Sound system for POSIX OSes | Audio
+)

@@ -1,0 +1,22 @@
+pkgname=ovsiankina-shell
+pkgver=1.0
+pkgrel=1
+pkgdesc='Ovsiankina meta-package for shell (zsh) and TUX Dependencies'
+arch=(any)
+license=(None)
+depends=(
+	## -------------------- Shells & Terminal UX --------------------
+	bash      # The GNU Bourne Again shell | Shell
+	bat       # Cat clone with syntax highlighting and git integration | Shell/Utilities
+	eza       # Modern replacement for ls with colors and icons | Shell/Utilities
+	fzf       # Command-line fuzzy finder
+	fastfetch # Feature-rich and fast neofetch-like system info tool | Shell/Utilities
+	fd        # Simple, fast and user-friendly alternative to find | Shell/Utilities
+	less      # A terminal pager program | Shell
+	starship  # Cross-shell prompt for astronauts | Shell/Prompt
+	thefuck   # Correct your previous console command | Shell/Utilities
+	tmux      # Terminal multiplexer | Shell/Multiplexer
+	zoxide    # Smarter cd command | Shell/Navigation
+	zsh       # Advanced shell with scripting capabilities | Shell
+	ripgrep   # Line-oriented search tool faster than grep | Dev Tools
+)

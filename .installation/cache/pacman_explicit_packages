@@ -1,0 +1,14 @@
+base
+base-devel
+efibootmgr
+git
+grub
+linux
+linux-firmware
+neovim
+networkmanager
+openssh
+sudo
+xfsprogs
+yay-bin
+yay-bin-debug

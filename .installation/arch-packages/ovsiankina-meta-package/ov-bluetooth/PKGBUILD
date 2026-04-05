@@ -1,0 +1,11 @@
+pkgname=ovsiankina-bluetooth
+pkgver=1.0
+pkgrel=1
+pkgdesc='Ovsiankina meta-package for bluetooth dependencies'
+arch=(any)
+license=(None)
+depends=(
+	## -------------------- Shells & Terminal UX --------------------
+	bluez       # The GNU Bourne Again shell | Shell
+	bluez-utils # Cat clone with syntax highlighting and git integration | Shell/Utilities
+)

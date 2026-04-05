@@ -1,0 +1,15 @@
+pkgname=ovsiankina-EPSIC-183-php-ecosystem
+pkgver=1.0
+pkgrel=1
+pkgdesc='Meta-package for the php ecosystem required by the EPSIC module 183'
+arch=(any)
+license=(None)
+depends=(
+	## -------------------- PHP Ecosystem --------------------
+	composer   # Dependency manager for PHP | PHP
+	php-apache # Apache SAPI for PHP | PHP
+	php-fpm    # FastCGI Process Manager for PHP | PHP
+	php-gd     # GD graphics module for PHP | PHP
+	php-sqlite # SQLite module for PHP | PHP
+	phpmyadmin # Web-based administration for MySQL/MariaDB | PHP
+)

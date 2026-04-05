@@ -1,0 +1,10 @@
+pkgname=ovsiankina-artificial_intelligence-AUR
+pkgver=1.0
+pkgrel=1
+pkgdesc='Ovsiankina Meta-package (AUR) for AI tools'
+arch=(any)
+license=(None)
+depends=(
+	## -------------------- AI --------------------
+	openai-codex-bin # Lightweight coding agent that runs in your terminal
+)

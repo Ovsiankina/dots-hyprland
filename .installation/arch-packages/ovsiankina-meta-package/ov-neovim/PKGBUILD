@@ -1,0 +1,13 @@
+pkgname=ovsiankina-neovim
+pkgver=1.0
+pkgrel=1
+pkgdesc='Ovsiankina Meta-package for Neovim && Nvim plugins Dependencies'
+arch=(any)
+license=(None)
+depends=(
+	## -------------------- Neovim && Nvim plugin depedencies --------------------
+	neovim # Fork of Vim aiming to improve UX and plugins | Editor
+
+	# For Mason 'hyprls' and 'gols'
+	go # Core compiler tools for the Go programming language
+)

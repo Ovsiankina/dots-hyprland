@@ -1,0 +1,10 @@
+pkgname=ovsiankina-c-cpp-ecosystem-AUR
+pkgver=1.0
+pkgrel=1
+pkgdesc='Ovsiankina Meta-package (AUR) for the C/C++ ecosystem'
+arch=(any)
+license=(None)
+depends=(
+	## -------------------- C/C++ Ecosystem --------------------
+	'codelldb-bin' # LLDB extension for VSCode
+)

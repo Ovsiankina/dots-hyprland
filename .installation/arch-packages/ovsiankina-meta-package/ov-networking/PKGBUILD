@@ -1,0 +1,17 @@
+pkgname=ovsiankina-networking
+pkgver=1.0
+pkgrel=1
+pkgdesc='Ovsiankina Meta-package for networking'
+arch=(any)
+license=(None)
+depends=(
+	## -------------------- Networking --------------------
+	dhcpcd         # RFC2131 compliant DHCP client daemon | Networking
+	iwd            # Internet Wireless Daemon | Networking/WiFi
+	openssh        # SSH connectivity tools | Networking
+	speedtest-cli  # Internet bandwidth testing via CLI | Networking
+	ufw            # Uncomplicated firewall tool | Networking
+	wget           # Network downloader | Networking
+	wpa_supplicant # Wireless LAN configuration daemon | Networking
+
+)

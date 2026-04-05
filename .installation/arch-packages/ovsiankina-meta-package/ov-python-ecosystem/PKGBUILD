@@ -1,0 +1,13 @@
+pkgname=ovsiankina-python-ecosystem
+pkgver=1.0
+pkgrel=1
+pkgdesc='Ovsiankina Meta-package for the Python ecosystem'
+arch=(any)
+license=(None)
+depends=(
+	## -------------------- Python Ecosystem --------------------
+	python         # The Python programming language | Dev Tools
+	python-mutagen # Audio metadata tag reader/writer | Python
+	python-pynvim  # Python client for Neovim | Python
+	pyenv          # Switch between multiple Python versions | Python
+)

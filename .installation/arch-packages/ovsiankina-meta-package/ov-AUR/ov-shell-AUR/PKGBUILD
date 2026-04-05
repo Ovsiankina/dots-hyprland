@@ -1,0 +1,18 @@
+pkgname=ovsiankina-shell-AUR
+pkgver=1.0
+pkgrel=1
+pkgdesc='Ovsiankina Meta-package (AUR) for shell (zsh) and TUX Dependencies'
+arch=(any)
+license=(None)
+depends=(
+	## -------------------- Shells & Terminal UX --------------------
+	cbonsai                          # A bonsai tree generator, written in C using ncurses [already listed]
+	pacnews                          # Read Arch Linux News from your CLI [already listed]
+	tldr++                           # Community-driven man pages with smart interaction [already listed]
+	asp                              # Arch build source file management
+	cheat                            # Interactive cheatsheets on the command-line
+	htop-vim                         # htop with Vim keybindings
+	sc-im                            # Vim-like terminal spreadsheet
+	zsh-fast-syntax-highlighting-git # Fast zsh syntax highlighting
+	pacnews                          # Read Arch Linux News from your CLI
+)

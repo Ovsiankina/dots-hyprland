@@ -1,0 +1,11 @@
+pkgname=ovsiankina-devtools-AUR
+pkgver=1.0
+pkgrel=1
+pkgdesc='Ovsiankina Meta-package (AUR) for devtools'
+arch=(any)
+license=(None)
+depends=(
+	## -------------------- Programming/Dev Tools --------------------
+	checkupdates-with-aur # Check updates from repos + AUR | Dev Tools
+	docker-scout          # Docker supply chain security CLI
+)
