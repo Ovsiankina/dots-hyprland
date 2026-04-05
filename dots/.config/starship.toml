@@ -1,6 +1,6 @@
 # Sets user-defined palette
 
-palette = "catppuccin_macchiato"
+palette = "mono_red"
 
 format = """
 [](zvm)\
@@ -64,29 +64,34 @@ vimcmd_visual_symbol = '[❮](bold yellow)'
 #          │                        Left side                         │
 #          ╰──────────────────────────────────────────────────────────╯
 
+[custom.zvm_inactive]
+command = 'echo "[$ZVM_STARSHIP]"'
+when = 'test "$ZVM_STARSHIP" = "INACTIVE"'
+style = "bg:zvm fg:zvm_inactive"
+format = '[]($style)'
 
 [custom.zvm_normal]
 command = 'echo "[$ZVM_STARSHIP]"'
 when = 'test "$ZVM_STARSHIP" = "N"'
-style = "bg:zvm fg:#70c96b"
+style = "bg:zvm fg:zvm_normal"
 format = '[ ($output )]($style)'
 
 [custom.zvm_insert]
 command = 'echo "[$ZVM_STARSHIP]"'
 when = 'test "$ZVM_STARSHIP" = "I"'
-style = "bg:zvm fg:#4ba8db bold"
+style = "bg:zvm fg:zvm_insert bold"
 format = '[ ($output )]($style)'
 
 [custom.zvm_visual]
 command = 'echo "[$ZVM_STARSHIP]"'
 when = 'test "$ZVM_STARSHIP" = "V"'
-style = "bg:zvm fg:#8c7aed bold"
+style = "bg:zvm fg:zvm_visual bold"
 format = '[ ($output )]($style)'
 
 [custom.zvm_replace]
 command = 'echo "[$ZVM_STARSHIP]"'
 when = 'test "$ZVM_STARSHIP" = "R"'
-style = "bg:zvm fg:#ff4411 bold"
+style = "bg:zvm fg:zvm_replace bold"
 format = '[ ($output )]($style)'
 
 [directory]
@@ -102,7 +107,7 @@ truncation_symbol = "…/"
 "Pictures" = " "
 
 [git_branch]
-symbol = ""
+symbol = "\uE0A0 "
 style = "bg:git fg:txt"
 format = '[ $symbol $branch ]($style)'
 
@@ -250,7 +255,7 @@ Arch = "\uf303"
 
 [cmd_duration]
 min_time = 0
-style = "bg:env fg:txt"
+style = "bg:cmd fg:txt"
 format = '[ $duration ]($style)'
 
 [time]
@@ -302,5 +307,32 @@ macchiato-surface1 = "#494d64"
 macchiato-surface0 = "#363a4f"
 macchiato-base = "#24273a"
 macchiato-mantle = "#1e2030"
-
 macchiato-crust = "#181926"
+
+# ZVM mode indicators
+zvm_normal = "#70c96b"   # normal mode  — green
+zvm_insert = "#4ba8db"   # insert mode  — blue
+zvm_visual = "#8c7aed"   # visual mode  — purple
+zvm_replace = "#ff4411"  # replace mode — orange
+
+[palettes.mono_red]
+# Left side: dark maroon → deep crimson
+zvm = "#1a0505" # zsh vim          — near-black red
+dir = "#4d1111" # directory        — dark maroon
+git = "#7a1c1c" # git status       — deep red
+lve = "#a82828" # language version — crimson
+env = "#cc3535" # virtual env      — medium red
+
+# Right side: medium → bright coral (mirrors left, brightens outward)
+sys = "#4d1111" # system info      — crimson
+aur = "#7a1c1c" # pacman | AUR     — medium red
+cmd = "#a82828" # cmd duration     — bright red
+tim = "#1a0505" # time             — coral red
+txt = "#ffe0e0" # text             — very pale pink, readable on all above
+
+# ZVM mode indicators
+zvm_normal = "#5a9a5f"   # normal mode  — muted green
+zvm_insert = "#5a8fab"   # insert mode  — muted blue
+zvm_visual = "#7a6fa8"   # visual mode  — muted purple
+zvm_replace = "#a8694f"  # replace mode — muted orange
+zvm_inactive = "#6b6b6b" # inactive     — grey
