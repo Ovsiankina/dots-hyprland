@@ -1,0 +1,16 @@
+pkgname=ovsiankina-imageFORMULA-R10
+pkgver=1.0
+pkgrel=1
+pkgdesc='Meta-package for the canon imageFORMULA R10 (Via QEMU hosting)'
+arch=(any)
+license=(None)
+depends=(
+	## -------------------- R10 --------------------
+	qemu-full
+	virt-manager
+	virt-viewer
+	dnsmasq
+	vde2
+	bridge-utils
+	openbsd-netcat
+)

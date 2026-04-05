@@ -1,0 +1,10 @@
+pkgname=ovsiankina-rust-ecosystem-AUR
+pkgver=1.0
+pkgrel=1
+pkgdesc='Ovsiankina Meta-package (AUR) for the Rust ecosystem'
+arch=(any)
+license=(None)
+depends=(
+	## -------------------- Rust Ecosystem --------------------
+	rustowl-bin # Visualize ownership and lifetimes in Rust | Rust
+)

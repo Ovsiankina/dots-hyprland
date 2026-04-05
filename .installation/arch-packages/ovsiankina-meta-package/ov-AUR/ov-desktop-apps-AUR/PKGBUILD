@@ -1,0 +1,23 @@
+pkgname=ovsiankina-desktop-apps-AUR
+pkgver=1.0
+pkgrel=1
+pkgdesc='Ovsiankina Meta-package (AUR) for all desktop-apps'
+arch=(any)
+license=(None)
+depends=(
+	## -------------------- Knowledge Tools --------------------
+	zen-browser-bin   # Firefox-based performance-oriented browser | Video/Browser
+	drawio            # Diagramming tool for diagrams and flowcharts | Editor
+	drawio-desktop    # Official Electron build of draw.io | Editor
+	onlyoffice-bin    # Office suite with text, spreadsheet, presentation editors | Editor/Office
+	anki              # Flashcard program
+	dibuja            # Simple GTK paint program
+	ida-free          # Freeware IDA disassembler
+	jetbrains-toolbox # Manage JetBrains IDEs
+	rpiusbboot        # Raspberry Pi USB boot utility
+	zsa-keymapp-bin   # Visual reference for ZSA keyboards
+	pinta             # Drawing/editing program modeled after Paint.NET. It's goal is to provide a simplified alternative to GIMP for casual users
+
+	# WARN: This package is sucipicious (not widely used) and doesn't work proprely
+	# kdrive-bin # Infomaniak Drive desktop sync client [already listed]
+)

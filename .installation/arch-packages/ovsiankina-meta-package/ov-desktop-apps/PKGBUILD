@@ -1,0 +1,11 @@
+pkgname=ovsiankina-desktop-aps
+pkgver=1.0
+pkgrel=1
+pkgdesc='Ovsiankina Meta-package for all desktop-apps'
+arch=(any)
+license=(None)
+depends=(
+	## -------------------- Editors & Knowledge Tools --------------------
+	mathjax  # JavaScript display engine for mathematics | Editor
+	obsidian # Knowledge base on top of plain text Markdown files | Editor/Knowledge
+)

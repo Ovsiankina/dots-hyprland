@@ -1,0 +1,14 @@
+pkgname=ovsiankina-c-cpp-ecosystem
+pkgver=1.0
+pkgrel=1
+pkgdesc='Ovsiankina Meta-package for the C/C++ ecosystem'
+arch=(any)
+license=(None)
+depends=(
+	## -------------------- C/C++ Ecosystem --------------------
+	doxygen  # Documentation generator for C/C++ etc. | Dev Tools
+	eigen    # C++ template library for linear algebra | Dev Tools
+	fmt      # Modern formatting library for C++ | Dev Tools
+	poco     # C++ libraries for building network and internet apps | Dev Tools
+	valgrind # Memory debugger (can help debugging audio/video apps) | Debug/Dev
+)

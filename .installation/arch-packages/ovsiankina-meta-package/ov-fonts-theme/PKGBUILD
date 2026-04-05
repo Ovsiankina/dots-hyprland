@@ -1,0 +1,12 @@
+pkgname=ovsiankina-fonts-theming
+pkgver=1.0
+pkgrel=1
+pkgdesc='Ovsiankina Meta-package for the fonts and theming'
+arch=(any)
+license=(None)
+depends=(
+	## -------------------- Fonts/Theming --------------------
+	noto-fonts-cjk # Google Noto CJK fonts | Fonts
+	otf-libertinus # Libertinus fonts with math support | Fonts
+	ttf-fira-code  # Monospaced font with ligatures | Fonts
+)

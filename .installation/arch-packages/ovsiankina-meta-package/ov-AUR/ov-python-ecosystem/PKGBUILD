@@ -1,0 +1,11 @@
+pkgname=ovsiankina-python-ecosystem-AUR
+pkgver=1.0
+pkgrel=1
+pkgdesc='Ovsiankina Meta-package (AUR) for the Python ecosystem'
+arch=(any)
+license=(None)
+depends=(
+	## -------------------- Python Ecosystem --------------------
+	python-gpustat # GPU load monitor for NVIDIA/AMD/Intel GPUs | Python
+	python-pywal16 # Generate colorschemes from images | Python
+)

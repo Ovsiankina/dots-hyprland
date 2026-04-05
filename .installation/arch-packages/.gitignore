@@ -1,0 +1,12 @@
+# Ignore all src/ and pkg/ directories anywhere
+**/src/
+**/pkg/
+
+# Ignore all built packages anywhere
+*.pkg.tar.zst
+
+**.tar.*
+
+# Don't ignore PKGBUILD anywhere
+!PKGBUILD
+!**/PKGBUILD

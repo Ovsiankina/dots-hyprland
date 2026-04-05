@@ -1,0 +1,25 @@
+pkgname=ovsiankina-devtools
+pkgver=1.0
+pkgrel=2
+pkgdesc='Ovsiankina Meta-package for devtools'
+arch=(any)
+license=(None)
+depends=(
+	## -------------------- Programming/Dev Tools --------------------
+	devtools      # Tools for Arch Linux package maintainers | Dev Tools
+	docker        # Pack, ship and run applications as containers | Dev Tools
+	docker-buildx # Docker CLI plugin for extended build capabilities | Dev Tools
+	git           # Fast distributed version control system | Dev Tools
+	glfw          # Multi-platform library for OpenGL/graphics | Dev Tools
+	lazydocker    # Simple TUI for docker | Dev Tools
+	lazygit       # Simple TUI for git | Dev Tools
+	ollama        # Create, run, share LLMs | AI/Dev Tools
+	plocate       # Faster replacement for mlocate | Utilities/Dev Tools
+	qemu-base     # Basic QEMU setup for virtualization | Virtualization
+	strace        # Trace system calls and signals | Debug/Dev Tools
+	unzip         # Extract .zip archives | Utilities
+	yazi          # Blazing fast terminal file manager (Rust) | Dev Tools
+	zip           # Archiver for .zip files | Utilities
+	stow          # Manage installation of multiple softwares in the same directory tree
+	usbutils      # A collection of USB tools to query connected USB devices
+)

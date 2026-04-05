@@ -1,0 +1,17 @@
+pkgname=ovsiankina-system
+pkgver=1.0
+pkgrel=1
+pkgdesc='Ovsiankina Meta-package for linux base system Dependencies'
+arch=(any)
+license=(None)
+depends=(
+	## -------------------- Base/System --------------------
+	base           # Minimal package set to define a basic Arch Linux installation
+	base-devel     # Basic tools to build Arch Linux packages
+	efibootmgr     # Linux user-space application to modify the EFI Boot Manager
+	grub           # GNU GRand Unified Bootloader (2)
+	linux          # The Linux kernel and modules
+	linux-firmware # Firmware files for Linux - Default set
+	man-db         # A utility for reading man pages
+	xfsprogs       # Utilities for managing the XFS filesystem
+)
