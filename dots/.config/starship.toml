@@ -1,103 +1,338 @@
-# Don't print a new line at the start of the prompt
-add_newline = false
-# Pipes ╰─ ╭─
-# Powerline symbols                                     
-# Wedges 🭧🭒 🭣🭧🭓
-# Random noise 🬖🬥🬔🬗
-# Cool stuff 󰜥   
+# Sets user-defined palette
 
-# format = """
-# $directory $fill $git_branch $cmd_duration
-#  $character"""
+palette = "mono_red"
+
 format = """
-$cmd_duration $directory$git_branch
-  $character"""
+[](zvm)\
+${custom.zvm_normal}\
+${custom.zvm_insert}\
+${custom.zvm_visual}\
+${custom.zvm_replace}\
+[](bg:dir fg:zvm)\
+$directory\
+[](fg:dir bg:git)\
+$git_branch\
+$git_status\
+[](fg:git bg:lve)\
+$c\
+$elixir\
+$elm\
+$golang\
+$gradle\
+$haskell\
+$java\
+$julia\
+$nodejs\
+$nim\
+$rust\
+$scala\
+$python\
+[](fg:lve bg:env)\
+$docker_context\
+${custom.docker}\
+${custom.python-venv}\
+[](fg:env)\
+$fill\
+[](fg:sys)\
+$os\
+$hostname\
+[](fg:aur bg:sys)\
+${custom.combined_updates}\
+[](fg:cmd bg:aur)\
+$cmd_duration\
+[](fg:tim bg:cmd)\
+$time\
+[](tim)\
+[ ]()
+$character\
+"""
 
-[fill]
-symbol = '-'
-style = 'fg:245'
+# Disable the blank line at the start of the prompt
+add_newline = true
 
-# Replace the "❯" symbol in the prompt with "➜"
-[character]                            # The name of the module we are configuring is "character"
-success_symbol = "[ ](bold fg:255)"
-error_symbol = "[ ](bold fg:249)"
+# CMD error symbol
+[character]
+success_symbol = '[❯](bold green)'
+error_symbol = '[](red)'
 
-# Disable the package module, hiding it from the prompt completely
-[package]
-disabled = true
+vimcmd_symbol = '[❮](bold green)'
+vimcmd_visual_symbol = '[❮](bold yellow)'
+# Vim modes
+# vimcmd_symbol = '[❮](bold purple)'
 
-[git_branch]
-style = "bg: 252"
-symbol = "󰘬"
-truncation_length = 12
-truncation_symbol = ""
-format = " 󰜥 [](bold fg:252)[$symbol $branch(:$remote_branch)](fg:235 bg:252)[ ](bold fg:252)"
+#          ╭──────────────────────────────────────────────────────────╮
+#          │                        Left side                         │
+#          ╰──────────────────────────────────────────────────────────╯
 
-[git_commit]
-commit_hash_length = 4
-tag_symbol = " "
+[custom.zvm_inactive]
+command = 'echo "[$ZVM_STARSHIP]"'
+when = 'test "$ZVM_STARSHIP" = "INACTIVE"'
+style = "bg:zvm fg:zvm_inactive"
+format = '[]($style)'
 
-[git_state]
-format = '[\($state( $progress_current of $progress_total)\)]($style) '
-cherry_pick = "[🍒 PICKING](bold red)"
+[custom.zvm_normal]
+command = 'echo "[$ZVM_STARSHIP]"'
+when = 'test "$ZVM_STARSHIP" = "N"'
+style = "bg:zvm fg:zvm_normal"
+format = '[ ($output )]($style)'
 
-[git_status]
-conflicted = " 🏳 "
-ahead = " 🏎💨 "
-behind = " 😰 "
-diverged = " 😵 "
-untracked = " 🤷 ‍"
-stashed = " 📦 "
-modified = " 📝 "
-staged = '[++\($count\)](green)'
-renamed = " ✍️ "
-deleted = " 🗑 "
+[custom.zvm_insert]
+command = 'echo "[$ZVM_STARSHIP]"'
+when = 'test "$ZVM_STARSHIP" = "I"'
+style = "bg:zvm fg:zvm_insert bold"
+format = '[ ($output )]($style)'
 
-[hostname]
-ssh_only = false
-format =  "[•$hostname](bg:252 bold fg:235)[](bold fg:252)"
-trim_at = ".companyname.com"
-disabled = false
+[custom.zvm_visual]
+command = 'echo "[$ZVM_STARSHIP]"'
+when = 'test "$ZVM_STARSHIP" = "V"'
+style = "bg:zvm fg:zvm_visual bold"
+format = '[ ($output )]($style)'
 
-[line_break]
-disabled = false
-
-[memory_usage]
-disabled = true
-threshold = -1
-symbol = " "
-style = "bold dimmed green"
-
-[time]
-disabled = true
-format = '🕙[\[ $time \]]($style) '
-time_format = "%T"
-
-[username]
-style_user = "bold bg:252 fg:235"
-style_root = "red bold"
-format = "[](bold fg:252)[$user]($style)"
-disabled = false
-show_always = true
+[custom.zvm_replace]
+command = 'echo "[$ZVM_STARSHIP]"'
+when = 'test "$ZVM_STARSHIP" = "R"'
+style = "bg:zvm fg:zvm_replace bold"
+format = '[ ($output )]($style)'
 
 [directory]
-home_symbol = " "
-read_only = "  "
-style = "bg:255 fg:black"
-truncation_length = 2
-truncation_symbol = ".../"
-format = '[](bold fg:255)[󰉋 → $path]($style)[](bold fg:255)'
-
+style = "bg:dir fg:txt"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
 
 [directory.substitutions]
-"Desktop" = "  "
-"Documents" = "  "
-"Downloads" = "  "
-"Music" = " 󰎈 "
-"Pictures" = "  "
-"Videos" = "  "
-"GitHub" = " 󰊤 "
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+
+[git_branch]
+symbol = "\uE0A0 "
+style = "bg:git fg:txt"
+format = '[ $symbol $branch ]($style)'
+
+[git_status]
+style = "bg:git fg:txt"
+format = '[$all_status$ahead_behind ]($style)'
+
+[c]
+symbol = " "
+style = "bg:lve fg:txt"
+format = '[ $symbol ($version) ]($style)'
+
+[elixir]
+symbol = " "
+style = "bg:lve fg:txt"
+format = '[ $symbol ($version) ]($style)'
+
+[elm]
+symbol = " "
+style = "bg:lve fg:txt"
+format = '[ $symbol ($version) ]($style)'
+
+[golang]
+symbol = " "
+style = "bg:lve fg:txt"
+format = '[ $symbol ($version) ]($style)'
+
+[gradle]
+style = "bg:lve fg:txt"
+format = '[ $symbol ($version) ]($style)'
+
+[haskell]
+symbol = " "
+style = "bg:lve fg:txt"
+format = '[ $symbol ($version) ]($style)'
+
+[java]
+symbol = " "
+style = "bg:lve fg:txt"
+format = '[ $symbol ($version) ]($style)'
+
+[julia]
+symbol = " "
+style = "bg:lve fg:txt"
+format = '[ $symbol ($version) ]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:lve fg:txt"
+format = '[ $symbol ($version) ]($style)'
+
+[nim]
+symbol = "󰆥 "
+style = "bg:lve fg:txt"
+format = '[ $symbol ($version) ]($style)'
+
+[rust]
+symbol = ""
+style = "bg:lve fg:txt"
+format = '[ $symbol ($version) ]($style)'
+
+[scala]
+symbol = " "
+style = "bg:lve fg:txt"
+format = '[ $symbol ($version) ]($style)'
+
+[python]
+symbol = ''
+pyenv_version_name = false
+style = "bg:lve fg:txt"
+detect_folders = ['.venv', 'venv']
+format = '[ ${symbol} ${version} ]($style)'
+
+[docker_context]
+symbol = " "
+style = "bg:env fg:txt"
+only_with_files = false
+format = '[ $symbol $context ]($style)'
+
+# [custom.docker]
+# symbol = " "
+# command = "docker ps --format '{{.Names}}'"
+# when = "docker ps -q | grep -q ."
+# description = "Show Docker container names"
+# style = "bg:env fg:txt"
+# format = "[ $symbol $output ]($style)"
+
+[custom.docker]
+symbol = " "
+style = "bg:env fg:txt"
+command = "docker ps --format '{{.Names}}' | paste -sd ' ' -"
+when = "systemctl is-active --quiet docker"
+description = "Show Docker daemon status and running containers"
+format = "[ $symbol$output ]($style)"
+
+[custom.python-venv]
+command = 'basename "$VIRTUAL_ENV"'
+when = 'true'
+style = "bg:env fg:txt"
+format = '[( $output )]($style)'
+
+# Separate left side from right side
+[fill]
+symbol = ' '
+
+#          ╭──────────────────────────────────────────────────────────╮
+#          │                        Right side                        │
+#          ╰──────────────────────────────────────────────────────────╯
+
+[hostname]
+ssh_only = true
+ssh_symbol = '󰣀 :'
+style = "bg:sys fg:txt"
+format = '[$hostname]($style)'
+disabled = false
+
+[os]
+style = "bg:sys fg:txt"
+disabled = false               # Disabled by default
+format = "[ $symbol ]($style)"
+
+[os.symbols]
+Windows = " "
+Arch = "\uf303"
+
+# [custom.combined_updates]
+# command = """
+# RATE=5;
+# CACHE_FILE="${HOME}/.cache/aur_update_count.txt";
+# write_updates () { echo "$(($(checkupdates --nocolor | wc -l)))|$(($(pacman -Qm | aur vercmp | wc -l)))" > $CACHE_FILE;
+# };
+# if ! test -f $CACHE_FILE;
+# then touch $CACHE_FILE && write_updates;
+# fi;
+# if test `find $CACHE_FILE -mmin +$RATE`;
+# then write_updates;
+# fi;
+# echo "$(<$CACHE_FILE)"
+# """
+# style = "bg:aur fg:txt"
+# when = "true"
+# symbol = "󰮯"
+# shell = ["bash", "--noprofile", "--norc"]
+# format = "[ $symbol $output ]($style)"
 
 [cmd_duration]
 min_time = 0
-format = '[](bold fg:252)[󰪢 $duration](bold bg:252 fg:235)[](bold fg:252)'
+style = "bg:cmd fg:txt"
+format = '[ $duration ]($style)'
+
+[time]
+disabled = false
+time_format = "%R"           # Hour:Minute Format
+style = "bg:tim fg:txt"
+format = '[ $time ]($style)'
+
+#          ╭──────────────────────────────────────────────────────────╮
+#          │                      Color palette                       │
+#          ╰──────────────────────────────────────────────────────────╯
+
+[palettes.color_variables]
+
+[palettes.catppuccin_macchiato]
+zvm = "#363a4f" # zsh vim
+dir = "#d576f6" # directory
+git = "#76cffa" # git status
+lve = "#61FA78" # language version
+env = "#fad361" # virtual env
+sys = "#76cffa" # system info (os, username, etc.)
+cmd = "#fad361" # cmd duration
+tim = "#d576f6" # time
+txt = "#4C4F69" # text color
+aur = "#61FA78" # pacman | AUR updates
+
+macchiato-rosewater = "#f4dbd6"
+macchiato-flamingo = "#f0c6c6"
+macchiato-pink = "#f5bde6"
+macchiato-mauve = "#c6a0f6"
+macchiato-red = "#ed8796"
+macchiato-maroon = "#ee99a0"
+macchiato-peach = "#f5a97f"
+macchiato-yellow = "#eed49f"
+macchiato-green = "#a6da95"
+macchiato-teal = "#8bd5ca"
+macchiato-sky = "#91d7e3"
+macchiato-sapphire = "#7dc4e4"
+macchiato-blue = "#8aadf4"
+macchiato-lavender = "#b7bdf8"
+macchiato-text = "#cad3f5"
+macchiato-subtext1 = "#b8c0e0"
+macchiato-subtext0 = "#a5adcb"
+macchiato-overlay2 = "#939ab7"
+macchiato-overlay1 = "#8087a2"
+macchiato-overlay0 = "#6e738d"
+macchiato-surface2 = "#5b6078"
+macchiato-surface1 = "#494d64"
+macchiato-surface0 = "#363a4f"
+macchiato-base = "#24273a"
+macchiato-mantle = "#1e2030"
+macchiato-crust = "#181926"
+
+# ZVM mode indicators
+zvm_normal = "#70c96b"   # normal mode  — green
+zvm_insert = "#4ba8db"   # insert mode  — blue
+zvm_visual = "#8c7aed"   # visual mode  — purple
+zvm_replace = "#ff4411"  # replace mode — orange
+
+[palettes.mono_red]
+# Left side: dark maroon → deep crimson
+zvm = "#1a0505" # zsh vim          — near-black red
+dir = "#4d1111" # directory        — dark maroon
+git = "#7a1c1c" # git status       — deep red
+lve = "#a82828" # language version — crimson
+env = "#cc3535" # virtual env      — medium red
+
+# Right side: medium → bright coral (mirrors left, brightens outward)
+sys = "#4d1111" # system info      — crimson
+aur = "#7a1c1c" # pacman | AUR     — medium red
+cmd = "#a82828" # cmd duration     — bright red
+tim = "#1a0505" # time             — coral red
+txt = "#ffe0e0" # text             — very pale pink, readable on all above
+
+# ZVM mode indicators
+zvm_normal = "#5a9a5f"   # normal mode  — muted green
+zvm_insert = "#5a8fab"   # insert mode  — muted blue
+zvm_visual = "#7a6fa8"   # visual mode  — muted purple
+zvm_replace = "#a8694f"  # replace mode — muted orange
+zvm_inactive = "#6b6b6b" # inactive     — grey
