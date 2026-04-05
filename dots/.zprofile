@@ -20,7 +20,7 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
 
 # Added by Toolbox App
-export PATH="$PATH:/home/ovsiankina/.local/share/JetBrains/Toolbox/scripts"
+export PATH="$PATH:$HOME/.local/share/JetBrains/Toolbox/scripts"
 
 # Launch Hyprland !  
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then

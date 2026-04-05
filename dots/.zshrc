@@ -119,4 +119,4 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # export DISPLAY=$(grep nameserver /etc/resolv.conf | awk '{print $2}'):0.0
 
 # opencode
-export PATH=/home/ovsiankina/.opencode/bin:$PATH
+export PATH=$HOME/.opencode/bin:$PATH
