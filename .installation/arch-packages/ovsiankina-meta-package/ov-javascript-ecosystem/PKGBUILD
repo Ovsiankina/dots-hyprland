@@ -6,7 +6,7 @@ arch=(any)
 license=(None)
 depends=(
 	## -------------------- JavaScript Ecosystem --------------------
-	npm             # Package manager for Node.js | Dev Tools
-	nodejs-lts-iron # Evented I/O for V8 javascript (LTS release: Iron)
-	yarn            # Dependency manager for JavaScript | Dev Tools
+	npm            # Package manager for Node.js | Dev Tools
+	nodejs-lts-jod # Evented I/O for V8 javascript
+	yarn           # Dependency manager for JavaScript | Dev Tools
 )

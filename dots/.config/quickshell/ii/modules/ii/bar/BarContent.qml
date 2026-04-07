@@ -1,4 +1,5 @@
 import qs.modules.ii.bar.weather
+import qs.modules.ii.bar.custom
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
@@ -113,9 +114,10 @@ Item { // Bar content region
             anchors.verticalCenter: parent.verticalCenter
             implicitWidth: root.centerSideModuleWidth
 
-            Resources {
+            OvResourceRow {
                 alwaysShowAllResources: root.useShortenedForm === 2
                 Layout.fillWidth: root.useShortenedForm === 2
+                autoHideYOffset: Config.options.bar.bottom ? root.anchors.bottomMargin : -root.anchors.topMargin
             }
 
             Media {
@@ -179,9 +181,10 @@ Item { // Bar content region
                     Layout.alignment: Qt.AlignVCenter
                 }
 
-                BatteryIndicator {
+                OvBatteryIndicator {
                     visible: (root.useShortenedForm < 2 && Battery.available)
                     Layout.alignment: Qt.AlignVCenter
+                    autoHideYOffset: Config.options.bar.bottom ? root.anchors.bottomMargin : -root.anchors.topMargin
                 }
             }
         }
@@ -315,6 +318,11 @@ Item { // Bar content region
                         color: rightSidebarButton.colText
                     }
                 }
+            }
+
+            OvUpdatesIndicator {
+                visible: Config.options.updates.enableCheck
+                autoHideYOffset: Config.options.bar.bottom ? root.anchors.bottomMargin : -root.anchors.topMargin
             }
 
             SysTray {

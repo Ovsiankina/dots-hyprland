@@ -21,6 +21,7 @@ Singleton {
     property real swapUsedPercentage: swapTotal > 0 ? (swapUsed / swapTotal) : 0
     property real cpuUsage: 0
     property var previousCpuStats
+    property real cpuTempC: 0
 
     property string maxAvailableMemoryString: kbToGbString(ResourceUsage.memoryTotal)
     property string maxAvailableSwapString: kbToGbString(ResourceUsage.swapTotal)
@@ -92,6 +93,20 @@ Singleton {
                 previousCpuStats = { total, idle }
             }
 
+            // Parse CPU temperature (prefer first valid reading)
+            function readMilli(fv) {
+                const t = Number((fv.text() ?? "").trim())
+                return isFinite(t) && t > 0 ? t : null
+            }
+            const candidates = [fileThermal0, fileThermal1, fileHwmon0t1]
+            let milli = null
+            for (let i = 0; i < candidates.length && milli === null; ++i) {
+                milli = readMilli(candidates[i])
+            }
+            if (milli !== null) {
+                cpuTempC = milli >= 200 ? (milli / 1000.0) : milli
+            }
+
             root.updateHistories()
             interval = Config.options?.resources?.updateInterval ?? 3000
         }
@@ -99,6 +114,11 @@ Singleton {
 
 	FileView { id: fileMeminfo; path: "/proc/meminfo" }
     FileView { id: fileStat; path: "/proc/stat" }
+
+    // Thermal zone sensor files for CPU temperature
+    FileView { id: fileThermal0; path: "/sys/class/thermal/thermal_zone0/temp" }
+    FileView { id: fileThermal1; path: "/sys/class/thermal/thermal_zone1/temp" }
+    FileView { id: fileHwmon0t1; path: "/sys/class/hwmon/hwmon0/temp1_input" }
 
     Process {
         id: findCpuMaxFreqProc

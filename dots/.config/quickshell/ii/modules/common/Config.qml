@@ -455,6 +455,7 @@ Singleton {
             property JsonObject resources: JsonObject {
                 property int updateInterval: 3000
                 property int historyLength: 60
+                property int cpuTempHighC: 70
             }
 
             property JsonObject tray: JsonObject {
