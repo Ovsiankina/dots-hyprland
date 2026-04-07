@@ -1,3 +1,4 @@
+import qs.modules.ii.bar
 import qs.modules.common
 import qs.modules.common.widgets
 import qs.services
