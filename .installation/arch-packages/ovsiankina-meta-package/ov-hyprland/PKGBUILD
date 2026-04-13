@@ -14,6 +14,7 @@ depends=(
 	hyprpaper   # Fast wallpaper utility with IPC | Hyprland
 	hyprpicker  # Hyprland-native color picker | Hyprland
 	hyprshot    # Screenshot utility for Hyprland | Hyprland
+	nwg-displays # GUI for managing monitors | Hyprland
 	slurp       # Select region in Wayland outputs | Wayland
 	qt5-wayland # Qt5 Wayland support
 	upower      # Power device daemon
