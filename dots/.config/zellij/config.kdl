@@ -8,21 +8,22 @@ keybinds clear-defaults=true {
         bind "up" { MoveFocus "up"; }
         bind "right" { MoveFocus "right"; }
         bind "c" { SwitchToMode "renamepane"; PaneNameInput 0; }
-        bind "d" { NewPane "down"; SwitchToMode "normal"; }
-        bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "normal"; }
-        bind "f" { ToggleFocusFullscreen; SwitchToMode "normal"; }
+        // bind "d" { NewPane "down"; SwitchToMode "normal"; }
+        // bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "normal"; }
+        // bind "f" { ToggleFocusFullscreen; SwitchToMode "normal"; }
         bind "h" { MoveFocus "left"; }
-        bind "i" { TogglePanePinned; SwitchToMode "normal"; }
+        // bind "i" { TogglePanePinned; SwitchToMode "normal"; }
         bind "j" { MoveFocus "down"; }
         bind "k" { MoveFocus "up"; }
         bind "l" { MoveFocus "right"; }
-        bind "n" { NewPane; SwitchToMode "normal"; }
-        bind "p" { SwitchFocus; }
+        // bind "n" { NewPane; SwitchToMode "normal"; }
+        // bind "p" { SwitchFocus; }
         bind "Ctrl p" { SwitchToMode "normal"; }
-        bind "r" { NewPane "right"; SwitchToMode "normal"; }
-        bind "s" { NewPane "stacked"; SwitchToMode "normal"; }
-        bind "w" { ToggleFloatingPanes; SwitchToMode "normal"; }
-        bind "z" { TogglePaneFrames; SwitchToMode "normal"; }
+        // bind "r" { NewPane "right"; SwitchToMode "normal"; }
+        bind "v" { NewPane "right"; SwitchToMode "normal"; } // tmux: split horizontal
+        bind "s" { NewPane "down"; SwitchToMode "normal"; } // tmux: split vertical
+        // bind "w" { ToggleFloatingPanes; SwitchToMode "normal"; }
+        // bind "z" { TogglePaneFrames; SwitchToMode "normal"; }
     }
     tab {
         bind "left" { GoToPreviousTab; }
@@ -47,6 +48,7 @@ keybinds clear-defaults=true {
         bind "l" { GoToNextTab; }
         bind "n" { NewTab; SwitchToMode "normal"; }
         bind "r" { SwitchToMode "renametab"; TabNameInput 0; }
+        bind "," { SwitchToMode "renametab"; TabNameInput 0; } // tmux: rename-window
         bind "s" { ToggleActiveSyncTab; SwitchToMode "normal"; }
         bind "Ctrl t" { SwitchToMode "normal"; }
         bind "x" { CloseTab; SwitchToMode "normal"; }
@@ -68,6 +70,7 @@ keybinds clear-defaults=true {
         bind "j" { Resize "Increase down"; }
         bind "k" { Resize "Increase up"; }
         bind "l" { Resize "Increase right"; }
+        // Alt+Shift+hjkl resize bindings moved to shared_except "locked"
         bind "Ctrl n" { SwitchToMode "normal"; }
     }
     move {
@@ -132,38 +135,83 @@ keybinds clear-defaults=true {
             }
             SwitchToMode "normal"
         }
+        bind "f" { // tmux: choose-session
+            LaunchOrFocusPlugin "session-manager" {
+                floating true
+                move_to_focused_tab true
+            }
+            SwitchToMode "normal"
+        }
     }
     shared_except "locked" {
         bind "Alt left" { MoveFocusOrTab "left"; }
         bind "Alt down" { MoveFocus "down"; }
         bind "Alt up" { MoveFocus "up"; }
         bind "Alt right" { MoveFocusOrTab "right"; }
-        bind "Alt +" { Resize "Increase"; }
-        bind "Alt -" { Resize "Decrease"; }
-        bind "Alt =" { Resize "Increase"; }
-        bind "Alt [" { PreviousSwapLayout; }
-        bind "Alt ]" { NextSwapLayout; }
-        bind "Alt f" { ToggleFloatingPanes; }
+        // bind "Alt +" { Resize "Increase"; }
+        // bind "Alt -" { Resize "Decrease"; }
+        // bind "Alt =" { Resize "Increase"; }
+        // bind "Alt [" { PreviousSwapLayout; }
+        // bind "Alt ]" { NextSwapLayout; }
+        // bind "Alt f" { ToggleFloatingPanes; }
         bind "Ctrl g" { SwitchToMode "locked"; }
-        bind "Alt h" { MoveFocusOrTab "left"; }
-        bind "Alt i" { MoveTab "left"; }
+        bind "Alt h" { MoveFocusOrTab "left"; }  // tmux: previous-window
+        // bind "Alt i" { MoveTab "left"; }
         bind "Alt j" { MoveFocus "down"; }
         bind "Alt k" { MoveFocus "up"; }
-        bind "Alt l" { MoveFocusOrTab "right"; }
-        bind "Alt n" { NewPane; }
-        bind "Alt o" { MoveTab "right"; }
-        bind "Alt p" { TogglePaneInGroup; }
-        bind "Alt Shift p" { ToggleGroupMarking; }
+        bind "Alt l" { MoveFocusOrTab "right"; } // tmux: next-window
+        // bind "Alt n" { NewPane; }
+        // bind "Alt o" { MoveTab "right"; }
+        // bind "Alt p" { TogglePaneInGroup; }
+        // bind "Alt Shift p" { ToggleGroupMarking; }
         bind "Ctrl q" { Quit; }
+        // tmux: resize panes without entering a mode
+        bind "Alt Shift h" { Resize "Increase left"; }  // tmux: resize-pane -L
+        bind "Alt Shift j" { Resize "Increase down"; }  // tmux: resize-pane -D
+        bind "Alt Shift k" { Resize "Increase up"; }    // tmux: resize-pane -U
+        bind "Alt Shift l" { Resize "Increase right"; } // tmux: resize-pane -R
     }
     shared_except "locked" "move" {
-        bind "Ctrl h" { SwitchToMode "move"; }
+        // bind "Ctrl h" { SwitchToMode "move"; }
+    }
+    // neovim integration: vim-zellij-navigator (like vim-tmux-navigator)
+    // WASM plugin detects nvim and either forwards key or moves zellij pane
+    shared_except "locked" {
+        bind "Ctrl h" {
+            MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.3.0/vim-zellij-navigator.wasm" {
+                name "move_focus_or_tab";
+                payload "left";
+                move_mod "ctrl";
+            };
+        }
+        bind "Ctrl j" {
+            MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.3.0/vim-zellij-navigator.wasm" {
+                name "move_focus";
+                payload "down";
+                move_mod "ctrl";
+            };
+        }
+        bind "Ctrl k" {
+            MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.3.0/vim-zellij-navigator.wasm" {
+                name "move_focus";
+                payload "up";
+                move_mod "ctrl";
+            };
+        }
+        bind "Ctrl l" {
+            MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.3.0/vim-zellij-navigator.wasm" {
+                name "move_focus_or_tab";
+                payload "right";
+                move_mod "ctrl";
+            };
+        }
     }
     shared_except "locked" "session" {
         bind "Ctrl o" { SwitchToMode "session"; }
     }
     shared_except "locked" "scroll" "search" "tmux" {
-        bind "Ctrl b" { SwitchToMode "tmux"; }
+        // bind "Ctrl b" { SwitchToMode "tmux"; }
+        bind "Alt w" { SwitchToMode "tmux"; } // NOTE: LEADER KEY (tmux prefix equivalent)
     }
     shared_except "locked" "scroll" "search" {
         bind "Ctrl s" { SwitchToMode "scroll"; }
@@ -222,25 +270,40 @@ keybinds clear-defaults=true {
         bind "d" { Detach; }
     }
     tmux {
-        bind "left" { MoveFocus "left"; SwitchToMode "normal"; }
-        bind "down" { MoveFocus "down"; SwitchToMode "normal"; }
-        bind "up" { MoveFocus "up"; SwitchToMode "normal"; }
-        bind "right" { MoveFocus "right"; SwitchToMode "normal"; }
-        bind "space" { NextSwapLayout; }
-        bind "\"" { NewPane "down"; SwitchToMode "normal"; }
-        bind "%" { NewPane "right"; SwitchToMode "normal"; }
-        bind "," { SwitchToMode "renametab"; }
-        bind "[" { SwitchToMode "scroll"; }
-        bind "Ctrl b" { Write 2; SwitchToMode "normal"; }
-        bind "c" { NewTab; SwitchToMode "normal"; }
+        // pane navigation (hjkl)
         bind "h" { MoveFocus "left"; SwitchToMode "normal"; }
         bind "j" { MoveFocus "down"; SwitchToMode "normal"; }
         bind "k" { MoveFocus "up"; SwitchToMode "normal"; }
         bind "l" { MoveFocus "right"; SwitchToMode "normal"; }
-        bind "n" { GoToNextTab; SwitchToMode "normal"; }
-        bind "o" { FocusNextPane; }
-        bind "p" { GoToPreviousTab; SwitchToMode "normal"; }
+        bind "left" { MoveFocus "left"; SwitchToMode "normal"; }
+        bind "down" { MoveFocus "down"; SwitchToMode "normal"; }
+        bind "up" { MoveFocus "up"; SwitchToMode "normal"; }
+        bind "right" { MoveFocus "right"; SwitchToMode "normal"; }
+        // splits
+        bind "v" { NewPane "right"; SwitchToMode "normal"; }  // tmux: split-window -h
+        bind "s" { NewPane "down"; SwitchToMode "normal"; }   // tmux: split-window -v
+        // tab/window management
+        bind "c" { NewTab; SwitchToMode "normal"; }            // tmux: new-window
+        bind "," { SwitchToMode "renametab"; TabNameInput 0; } // tmux: rename-window
+        bind "f" {                                             // tmux: choose-session
+            LaunchOrFocusPlugin "session-manager" {
+                floating true
+                move_to_focused_tab true
+            }
+            SwitchToMode "normal"
+        }
+        // scroll/copy
+        bind "[" { SwitchToMode "scroll"; }
+        // misc
         bind "z" { ToggleFocusFullscreen; SwitchToMode "normal"; }
+        bind "o" { FocusNextPane; }
+        bind "space" { NextSwapLayout; }
+        // old defaults (commented)
+        // bind "\"" { NewPane "down"; SwitchToMode "normal"; }
+        // bind "%" { NewPane "right"; SwitchToMode "normal"; }
+        // bind "Ctrl b" { Write 2; SwitchToMode "normal"; }
+        // bind "n" { GoToNextTab; SwitchToMode "normal"; }
+        // bind "p" { GoToPreviousTab; SwitchToMode "normal"; }
     }
 }
 
@@ -301,7 +364,7 @@ web_client {
 // The name of the default layout to load on startup
 // Default: "default"
 // 
-// default_layout "compact"
+default_layout "compact" // no status bar hints
  
 // The folder in which Zellij will look for layouts
 // (Requires restart)
@@ -327,7 +390,7 @@ web_client {
 //   - true (default, enabled)
 //   - false
 // 
-// pane_frames false
+pane_frames false
  
 // When attaching to an existing session with other users,
 // should the session be mirrored (true)
@@ -409,20 +472,20 @@ web_client {
 // Options:
 //   - true (default)
 //   - false
-// 
-// session_serialization false
- 
+//
+session_serialization true // tmux: continuum autosave
+
 // Whether pane viewports are serialized along with the session, default is false
 // Options:
 //   - true
 //   - false (default)
-// 
+//
 // serialize_pane_viewport false
- 
+
 // Scrollback lines to serialize along with the pane viewport when serializing sessions, 0
 // defaults to the scrollback size. If this number is higher than the scrollback size, it will
 // also default to the scrollback size. This does nothing if `serialize_pane_viewport` is not true.
-// 
+//
 // scrollback_lines_to_serialize 10000
  
 // Enable or disable the rendering of styled and colored underlines (undercurl).
@@ -433,8 +496,8 @@ web_client {
 // styled_underlines false
  
 // How often in seconds sessions are serialized
-// 
-// serialization_interval 10000
+//
+serialization_interval 15 // tmux: continuum-save-interval
  
 // Enable or disable writing of session metadata to disk (if disabled, other sessions might not know
 // metadata info on this session)
