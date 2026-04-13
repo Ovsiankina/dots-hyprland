@@ -18,3 +18,6 @@ __pycache__/
 
 # ZSH history
 dots/.zsh/.zsh_history
+
+# Stow-managed symlinks (created by running stow from dots/)
+.zsh

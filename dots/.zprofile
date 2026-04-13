@@ -24,5 +24,5 @@ export PATH="$PATH:$HOME/.local/share/JetBrains/Toolbox/scripts"
 
 # Launch Hyprland !  
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-  Hyprland
+  start-hyprland
 fi
