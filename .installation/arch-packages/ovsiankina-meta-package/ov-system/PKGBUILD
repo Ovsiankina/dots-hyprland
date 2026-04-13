@@ -14,4 +14,5 @@ depends=(
 	linux-firmware # Firmware files for Linux - Default set
 	man-db         # A utility for reading man pages
 	xfsprogs       # Utilities for managing the XFS filesystem
+	kwallet-pam    # KDE Wallet PAM integration for auto-unlock on login
 )

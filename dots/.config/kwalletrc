@@ -1,0 +1,11 @@
+[Wallet]
+Enabled=true
+Launch Manager=false
+Prompt on Open=false
+First Use=false
+
+[org.freedesktop.secrets]
+Enabled=true
+
+[kdewallet]
+Default Wallet=kdewallet

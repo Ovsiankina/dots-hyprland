@@ -219,6 +219,27 @@ sync_end4_upstream() {
 	v bash "$sync_script"
 }
 
+configure_kwallet_pam() {
+	echo "Configuring KWallet PAM integration..."
+	local pam_file="/etc/pam.d/system-login"
+	local pam_line="session    optional   pam_kwallet5.so autologin"
+
+	# Check if line already exists
+	if grep -q "pam_kwallet5.so" "$pam_file" 2>/dev/null; then
+		echo "KWallet PAM module already configured."
+		return 0
+	fi
+
+	# Add after pam_keyinit.so line
+	if grep -q "pam_keyinit.so" "$pam_file"; then
+		v sudo sed -i "/pam_keyinit.so/a\\$pam_line" "$pam_file"
+		echo "KWallet PAM module added to $pam_file"
+	else
+		echo "ERROR: Could not find pam_keyinit.so in $pam_file"
+		return 1
+	fi
+}
+
 symlink_with_stow() {
 	echo "Creating symlinks with stow ..."
 	x cd "$HOME/dotfiles"
@@ -257,6 +278,7 @@ main() {
 	install_depedencies
 	setup_user_grp
 	sync_end4_upstream
+	configure_kwallet_pam
 	################################################################################
 	printf "\e[36m[$0]: 2. Copying + Configuring\e[0m\n"
 	v mkdir -p $XDG_BIN_HOME $XDG_CACHE_HOME $OV_DOT $XDG_DATA_HOME
