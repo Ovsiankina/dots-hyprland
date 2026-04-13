@@ -31,7 +31,7 @@
         },
         "palette": {
             "accentColor": "",
-            "type": "auto"
+            "type": "scheme-fruit-salad"
         },
         "transparency": {
             "automatic": true,
@@ -89,12 +89,12 @@
                     "dateInClock": true,
                     "dateStyle": "bubble",
                     "dialNumberStyle": "full",
-                    "hourHandStyle": "fill",
-                    "hourMarks": false,
+                    "hourHandStyle": "hollow",
+                    "hourMarks": true,
                     "minuteHandStyle": "medium",
-                    "secondHandStyle": "dot",
-                    "sides": 14,
-                    "timeIndicators": true,
+                    "secondHandStyle": "classic",
+                    "sides": 5,
+                    "timeIndicators": false,
                     "useSineCookie": false
                 },
                 "digital": {
@@ -118,15 +118,15 @@
                 },
                 "showOnlyWhenLocked": false,
                 "style": "cookie",
-                "styleLocked": "cookie",
+                "styleLocked": "digital",
                 "x": 100,
                 "y": 100
             },
             "weather": {
-                "enable": false,
+                "enable": true,
                 "placementStrategy": "free",
-                "x": 400,
-                "y": 100
+                "x": 369.91796875,
+                "y": 99.26953125
             }
         }
     },
@@ -210,7 +210,7 @@
             "key": 12
         },
         "splitButtons": false,
-        "superKey": "",
+        "superKey": "",
         "useFnSymbol": false,
         "useMacSymbol": false,
         "useMouseSymbol": false
@@ -332,8 +332,8 @@
     },
     "panelFamily": "ii",
     "policies": {
-        "ai": 1,
-        "weeb": 1
+        "ai": 2,
+        "weeb": 0
     },
     "regionSelector": {
         "annotation": {
