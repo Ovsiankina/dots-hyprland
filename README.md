@@ -6,3 +6,5 @@
 - [ ] Figure out how i want the sync process to look like
 
 ## Sync process
+
+See [docs/SYNC.md](docs/SYNC.md)
