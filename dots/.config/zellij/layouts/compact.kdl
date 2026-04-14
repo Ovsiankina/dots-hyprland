@@ -1,0 +1,7 @@
+// Compact layout with status bar on top
+layout {
+    pane size=1 borderless=true {
+        plugin location="zellij:compact-bar"
+    }
+    pane
+}
