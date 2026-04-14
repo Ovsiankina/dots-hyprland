@@ -7,17 +7,17 @@ license=(None)
 depends=(
 
 	## -------------------- Hyprland & Wayland Stack --------------------
-	grim        # Screenshot utility for Wayland | Wayland/Hyprland
-	hypridle    # Hyprland idle daemon | Hyprland
-	hyprland    # Dynamic tiling Wayland compositor | Hyprland
-	hyprlock    # Hyprland native lock screen | Hyprland
-	hyprpaper   # Fast wallpaper utility with IPC | Hyprland
-	hyprpicker  # Hyprland-native color picker | Hyprland
-	hyprshot    # Screenshot utility for Hyprland | Hyprland
+	grim         # Screenshot utility for Wayland | Wayland/Hyprland
+	hypridle     # Hyprland idle daemon | Hyprland
+	hyprland     # Dynamic tiling Wayland compositor | Hyprland
+	hyprlock     # Hyprland native lock screen | Hyprland
+	hyprpaper    # Fast wallpaper utility with IPC | Hyprland
+	hyprpicker   # Hyprland-native color picker | Hyprland
+	hyprshot     # Screenshot utility for Hyprland | Hyprland
 	nwg-displays # GUI for managing monitors | Hyprland
-	slurp       # Select region in Wayland outputs | Wayland
-	qt5-wayland # Qt5 Wayland support
-	upower      # Power device daemon
+	slurp        # Select region in Wayland outputs | Wayland
+	qt5-wayland  # Qt5 Wayland support
+	upower       # Power device daemon
 
 	## -------------------- No longer used --------------------
 	# notification-daemon # Desktop notifications service | Audio/Video

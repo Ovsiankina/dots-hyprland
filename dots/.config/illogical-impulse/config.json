@@ -19,7 +19,7 @@
     },
     "appearance": {
         "extraBackgroundTint": true,
-        "fakeScreenRounding": 2,
+        "fakeScreenRounding": 0,
         "fonts": {
             "expressive": "Space Grotesk",
             "iconNerd": "JetBrains Mono NF",
@@ -30,7 +30,7 @@
             "title": "Google Sans Flex"
         },
         "palette": {
-            "accentColor": "",
+            "accentColor": "#89001D",
             "type": "scheme-fruit-salad"
         },
         "transparency": {
@@ -44,28 +44,28 @@
             "enableQtApps": true,
             "enableTerminal": true,
             "terminalGenerationProps": {
-                "forceDarkMode": false,
+                "forceDarkMode": true,
                 "harmonizeThreshold": 100,
-                "harmony": 0.6,
+                "harmony": 0.4,
                 "termFgBoost": 0.35
             }
         }
     },
     "apps": {
         "bluetooth": "kcmshell6 kcm_bluetooth",
-        "changePassword": "kitty -1 --hold=yes fish -i -c 'passwd'",
+        "changePassword": "kitty -1 --hold=yes zsh -i -c 'passwd'",
         "manageUser": "kcmshell6 kcm_users",
         "network": "kcmshell6 kcm_networkmanagement",
         "networkEthernet": "kcmshell6 kcm_networkmanagement",
         "taskManager": "plasma-systemmonitor --page-name Processes",
         "terminal": "kitty -1",
-        "update": "kitty -1 --hold=yes fish -i -c 'pkexec pacman -Syu'",
+        "update": "kitty -1 --hold=yes zsh -i -c 'pkexec pacman -Syu'",
         "volumeMixer": "~/.config/hypr/hyprland/scripts/launch_first_available.sh \"pavucontrol-qt\" \"pavucontrol\""
     },
     "audio": {
         "protection": {
             "enable": false,
-            "maxAllowed": 99,
+            "maxAllowed": 150,
             "maxAllowedIncrease": 10
         }
     },
@@ -77,10 +77,10 @@
             "enableWorkspace": true,
             "vertical": false,
             "widgetsFactor": 1.2,
-            "workspaceZoom": 1.07
+            "workspaceZoom": 1
         },
         "thumbnailPath": "",
-        "wallpaperPath": "",
+        "wallpaperPath": "/home/ovsiankina/Pictures/b17b27216852695.682b54889f667.webp",
         "widgets": {
             "clock": {
                 "cookie": {
@@ -88,73 +88,73 @@
                     "constantlyRotate": false,
                     "dateInClock": true,
                     "dateStyle": "bubble",
-                    "dialNumberStyle": "full",
+                    "dialNumberStyle": "dots",
                     "hourHandStyle": "hollow",
-                    "hourMarks": true,
+                    "hourMarks": false,
                     "minuteHandStyle": "medium",
-                    "secondHandStyle": "classic",
-                    "sides": 5,
-                    "timeIndicators": false,
-                    "useSineCookie": false
+                    "secondHandStyle": "dot",
+                    "sides": 6,
+                    "timeIndicators": true,
+                    "useSineCookie": true
                 },
                 "digital": {
                     "adaptiveAlignment": true,
                     "animateChange": true,
                     "font": {
                         "family": "Google Sans Flex",
-                        "roundness": 0,
-                        "size": 90,
-                        "weight": 350,
-                        "width": 100
+                        "roundness": 100,
+                        "size": 92.48892847665792,
+                        "weight": 638.9087601534296,
+                        "width": 117.77301778664747
                     },
                     "showDate": true,
                     "vertical": false
                 },
                 "enable": true,
-                "placementStrategy": "leastBusy",
+                "placementStrategy": "free",
                 "quote": {
                     "enable": false,
                     "text": ""
                 },
                 "showOnlyWhenLocked": false,
                 "style": "cookie",
-                "styleLocked": "digital",
-                "x": 100,
-                "y": 100
+                "styleLocked": "cookie",
+                "x": 1685.5238925540743,
+                "y": 106.5234375
             },
             "weather": {
                 "enable": true,
                 "placementStrategy": "free",
-                "x": 369.91796875,
-                "y": 99.26953125
+                "x": 446.7109375,
+                "y": 1041.94140625
             }
         }
     },
     "bar": {
         "autoHide": {
-            "enable": false,
+            "enable": true,
             "hoverRegionWidth": 2,
             "pushWindows": false,
             "showWhenPressingSuper": {
-                "delay": 140,
+                "delay": 240,
                 "enable": true
             }
         },
         "borderless": false,
-        "bottom": false,
-        "cornerStyle": 0,
+        "bottom": true,
+        "cornerStyle": 2,
         "floatStyleShadow": true,
         "indicators": {
             "notifications": {
-                "showUnreadCount": false
+                "showUnreadCount": true
             }
         },
         "resources": {
             "alwaysShowCpu": true,
             "alwaysShowSwap": true,
-            "cpuWarningThreshold": 90,
-            "memoryWarningThreshold": 95,
-            "swapWarningThreshold": 85
+            "cpuWarningThreshold": 80,
+            "memoryWarningThreshold": 80,
+            "swapWarningThreshold": 80
         },
         "screenList": [
         ],
@@ -165,52 +165,50 @@
         "topLeftIcon": "spark",
         "utilButtons": {
             "showColorPicker": false,
-            "showDarkModeToggle": true,
-            "showKeyboardToggle": true,
+            "showDarkModeToggle": false,
+            "showKeyboardToggle": false,
             "showMicToggle": false,
             "showPerformanceProfileToggle": false,
             "showScreenRecord": false,
-            "showScreenSnip": true
+            "showScreenSnip": false
         },
         "verbose": true,
         "vertical": false,
         "weather": {
-            "city": "",
-            "enable": false,
-            "enableGPS": true,
-            "fetchInterval": 10,
+            "city": "Lausanne",
+            "enable": true,
+            "enableGPS": false,
+            "fetchInterval": 30,
             "useUSCS": false
         },
         "workspaces": {
             "alwaysShowNumbers": false,
-            "monochromeIcons": true,
+            "monochromeIcons": false,
             "numberMap": [
-                "1",
-                "2"
             ],
             "showAppIcons": true,
             "showNumberDelay": 300,
-            "shown": 10,
-            "useNerdFont": false
+            "shown": 8,
+            "useNerdFont": true
         }
     },
     "battery": {
         "automaticSuspend": true,
-        "critical": 5,
-        "full": 101,
-        "low": 20,
-        "suspend": 3
+        "critical": 15,
+        "full": 85,
+        "low": 25,
+        "suspend": 5
     },
     "calendar": {
         "locale": "en-GB"
     },
     "cheatsheet": {
         "fontSize": {
-            "comment": 12,
-            "key": 12
+            "comment": 20,
+            "key": 20
         },
-        "splitButtons": false,
-        "superKey": "",
+        "splitButtons": true,
+        "superKey": "󰣇",
         "useFnSymbol": false,
         "useMacSymbol": false,
         "useMouseSymbol": false
@@ -270,8 +268,8 @@
             "enable": false
         },
         "night": {
-            "automatic": true,
-            "colorTemperature": 5000,
+            "automatic": false,
+            "colorTemperature": 6500,
             "from": "19:00",
             "to": "06:30"
         }
@@ -286,8 +284,8 @@
         "launchOnStartup": false,
         "materialShapeChars": true,
         "security": {
-            "requirePasswordToPower": false,
-            "unlockKeyring": true
+            "requirePasswordToPower": true,
+            "unlockKeyring": false
         },
         "showLockedText": true,
         "useHyprlock": false
@@ -303,7 +301,7 @@
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
     },
     "notifications": {
-        "timeout": 7000
+        "timeout": 9000
     },
     "osd": {
         "timeout": 1000
@@ -327,8 +325,8 @@
         "enable": true,
         "orderBottomUp": false,
         "orderRightLeft": false,
-        "rows": 2,
-        "scale": 0.18
+        "rows": 1,
+        "scale": 0.1
     },
     "panelFamily": "ii",
     "policies": {
@@ -365,13 +363,11 @@
         "savePath": "/home/ovsiankina/Videos"
     },
     "screenSnip": {
-        "savePath": ""
+        "savePath": "/home/ovsiankina/Pictures/Screenshots/"
     },
     "search": {
-        "engineBaseUrl": "https://www.google.com/search?q=",
+        "engineBaseUrl": "https://duckduckgo.com/?q=",
         "excludedSites": [
-            "quora.com",
-            "facebook.com"
         ],
         "imageSearch": {
             "imageSearchEngineBaseUrl": "https://lens.google.com/uploadbyurl?url=",
@@ -404,20 +400,20 @@
         },
         "cornerOpen": {
             "bottom": false,
-            "clickless": false,
-            "clicklessCornerEnd": true,
-            "clicklessCornerVerticalOffset": 1,
-            "cornerRegionHeight": 5,
+            "clickless": true,
+            "clicklessCornerEnd": false,
+            "clicklessCornerVerticalOffset": 0,
+            "cornerRegionHeight": 250,
             "cornerRegionWidth": 250,
             "enable": true,
             "valueScroll": true,
-            "visualize": false
+            "visualize": true
         },
         "keepRightSidebarLoaded": true,
         "quickSliders": {
-            "enable": false,
+            "enable": true,
             "showBrightness": true,
-            "showMic": false,
+            "showMic": true,
             "showVolume": true
         },
         "quickToggles": {
@@ -441,11 +437,15 @@
                         "type": "mic"
                     },
                     {
+                        "size": 1,
+                        "type": "darkMode"
+                    },
+                    {
                         "size": 2,
                         "type": "audio"
                     },
                     {
-                        "size": 2,
+                        "size": 1,
                         "type": "nightLight"
                     }
                 ]
@@ -458,7 +458,7 @@
         }
     },
     "sounds": {
-        "battery": false,
+        "battery": true,
         "pomodoro": false,
         "theme": "freedesktop"
     },
@@ -476,9 +476,9 @@
         "shortDateFormat": "dd/MM"
     },
     "tray": {
-        "filterPassive": true,
+        "filterPassive": false,
         "invertPinnedItems": true,
-        "monochromeIcons": true,
+        "monochromeIcons": false,
         "pinnedItems": [
             "Fcitx"
         ],
@@ -525,7 +525,7 @@
         }
     },
     "wallpaperSelector": {
-        "useSystemFileDialog": false
+        "useSystemFileDialog": true
     },
     "windows": {
         "centerTitle": true,
@@ -533,8 +533,8 @@
     },
     "workSafety": {
         "enable": {
-            "clipboard": false,
-            "wallpaper": false
+            "clipboard": true,
+            "wallpaper": true
         },
         "triggerCondition": {
             "fileKeywords": [
