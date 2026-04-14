@@ -76,6 +76,26 @@ source ~/.zsh/aliases.zsh
 source ~/.zsh/aliases_functions.zsh
 source ~/.zsh/ovsiankina_wrapper.zsh
 
+# Keep GNU Stow behavior predictable: default target is $HOME.
+# This prevents accidental links inside the dotfiles repo when running from dots/.
+stow() {
+  local has_target=0
+  local arg
+  for arg in "$@"; do
+    case "$arg" in
+      -t|--target|--target=*)
+        has_target=1
+        ;;
+    esac
+  done
+
+  if (( has_target )); then
+    command stow "$@"
+  else
+    command stow --target="$HOME" "$@"
+  fi
+}
+
 # ==============================================
 # Eval
 # ==============================================
