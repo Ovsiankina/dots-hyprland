@@ -81,11 +81,11 @@ source ~/.zsh/ovsiankina_wrapper.zsh
 # ==============================================
 
 eval "$(starship init zsh)"
-eval "$(zoxide init --cmd cd zsh)"
 eval "$(fzf --zsh)"
 eval "$(thefuck --alias fuck)"
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
+eval "$(zoxide init --cmd cd zsh)"
 
 
 # ==============================================
