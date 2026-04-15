@@ -24,3 +24,4 @@ alias dwl='nmcli d w l'
 
 # ── Zellij ────────────────────────────────────────────────────────────
 alias tmux='zellij'
+alias ttmux='/bin/tmux'
