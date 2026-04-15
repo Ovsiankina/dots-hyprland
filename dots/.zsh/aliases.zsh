@@ -21,3 +21,6 @@ alias cde='zoxide edit'
 alias dwr='nmcli d w r'
 alias dwc='nmcli d w c --ask'
 alias dwl='nmcli d w l'
+
+# ── Zellij ────────────────────────────────────────────────────────────
+alias tmux='zellij'
