@@ -1,7 +1,7 @@
 pkgname=ovsiankina-shell
-pkgver=1.0
+pkgver=1.1
 pkgrel=1
-pkgdesc='Ovsiankina meta-package for shell (zsh) and TUX Dependencies'
+pkgdesc='Ovsiankina meta-package for shell (zsh) and zellij'
 arch=(any)
 license=(None)
 depends=(
@@ -15,8 +15,9 @@ depends=(
 	less      # A terminal pager program | Shell
 	starship  # Cross-shell prompt for astronauts | Shell/Prompt
 	thefuck   # Correct your previous console command | Shell/Utilities
-	tmux      # Terminal multiplexer | Shell/Multiplexer
-	zoxide    # Smarter cd command | Shell/Navigation
-	zsh       # Advanced shell with scripting capabilities | Shell
-	ripgrep   # Line-oriented search tool faster than grep | Dev Tools
+	# tmux      # Terminal multiplexer | Shell/Multiplexer
+	zellij  # Terminal multiplexer built in rust | Shell/Multiplexer
+	zoxide  # Smarter cd command | Shell/Navigation
+	zsh     # Advanced shell with scripting capabilities | Shell
+	ripgrep # Line-oriented search tool faster than grep | Dev Tools
 )
