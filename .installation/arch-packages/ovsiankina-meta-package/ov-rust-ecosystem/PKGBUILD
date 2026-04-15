@@ -7,5 +7,4 @@ license=(None)
 depends=(
 	## -------------------- Rust Ecosystem --------------------
 	rust-src # Rust compiler source code for IDEs | Dev Tools
-	rustup   # Rust toolchain installer | Rust
 )

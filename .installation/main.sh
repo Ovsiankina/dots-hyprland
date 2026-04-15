@@ -101,6 +101,15 @@ install_qwerty_fr() {
 	x cd "$base"
 }
 
+install_rustup() {
+	if ! command -v rustup >/dev/null 2>&1; then
+		echo "Installing rustup via official installer..."
+		v curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+	else
+		echo "rustup is already installed."
+	fi
+}
+
 install-local-pkgbuild() {
 	local location=$1
 	local installflags=$2
@@ -192,6 +201,7 @@ install_depedencies() {
 	install_ovsiankina_meta_packages
 	install_ovsiankina_AUR_meta_packages
 	install_illogical_impulse_meta_packages
+	v install_rustup
 	v install_tmux_plugins
 	v install_qwerty_fr
 	install_illogical_impulse_python_packages
