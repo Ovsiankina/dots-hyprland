@@ -30,7 +30,7 @@
             "title": "Google Sans Flex"
         },
         "palette": {
-            "accentColor": "#89001D",
+            "accentColor": "",
             "type": "scheme-fruit-salad"
         },
         "transparency": {
@@ -80,7 +80,7 @@
             "workspaceZoom": 1
         },
         "thumbnailPath": "",
-        "wallpaperPath": "/home/ovsiankina/Pictures/b17b27216852695.682b54889f667.webp",
+        "wallpaperPath": "/home/ovsiankina/.config/quickshell/ii/assets/images/default_wallpaper.png",
         "widgets": {
             "clock": {
                 "cookie": {
@@ -175,7 +175,7 @@
         "verbose": true,
         "vertical": false,
         "weather": {
-            "city": "Lausanne",
+            "city": "Renens",
             "enable": true,
             "enableGPS": false,
             "fetchInterval": 30,
