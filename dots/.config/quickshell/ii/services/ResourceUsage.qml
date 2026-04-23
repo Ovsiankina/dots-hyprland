@@ -31,6 +31,8 @@ Singleton {
     property list<real> cpuUsageHistory: []
     property list<real> memoryUsageHistory: []
     property list<real> swapUsageHistory: []
+    property list<real> cpuTempHistory: []
+    readonly property real cpuTempMaxC: 100
 
     function kbToGbString(kb) {
         return (kb / (1024 * 1024)).toFixed(1) + " GB";
@@ -54,10 +56,17 @@ Singleton {
             cpuUsageHistory.shift()
         }
     }
+    function updateCpuTempHistory() {
+        cpuTempHistory = [...cpuTempHistory, cpuTempC / cpuTempMaxC]
+        if (cpuTempHistory.length > historyLength) {
+            cpuTempHistory.shift()
+        }
+    }
     function updateHistories() {
         updateMemoryUsageHistory()
         updateSwapUsageHistory()
         updateCpuUsageHistory()
+        updateCpuTempHistory()
     }
 
 	Timer {

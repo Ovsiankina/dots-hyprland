@@ -20,19 +20,29 @@ StyledOverlayWidget {
             "icon": "planner_review",
             "name": Translation.tr("CPU"),
             "history": ResourceUsage.cpuUsageHistory,
-            "maxAvailableString": ResourceUsage.maxAvailableCpuString
+            "maxAvailableString": ResourceUsage.maxAvailableCpuString,
+            "valueSuffix": "%"
         },
         {
             "icon": "memory",
             "name": Translation.tr("RAM"),
             "history": ResourceUsage.memoryUsageHistory,
-            "maxAvailableString": ResourceUsage.maxAvailableMemoryString
+            "maxAvailableString": ResourceUsage.maxAvailableMemoryString,
+            "valueSuffix": "%"
         },
         {
             "icon": "swap_horiz",
             "name": Translation.tr("Swap"),
             "history": ResourceUsage.swapUsageHistory,
-            "maxAvailableString": ResourceUsage.maxAvailableSwapString
+            "maxAvailableString": ResourceUsage.maxAvailableSwapString,
+            "valueSuffix": "%"
+        },
+        {
+            "icon": "device_thermostat",
+            "name": Translation.tr("Temp"),
+            "history": ResourceUsage.cpuTempHistory,
+            "maxAvailableString": ResourceUsage.cpuTempMaxC + "°C",
+            "valueSuffix": "°C"
         },
     ]
 
@@ -71,6 +81,7 @@ StyledOverlayWidget {
                 Layout.margins: 8
                 history: root.resources[tabBar.currentIndex]?.history ?? []
                 maxAvailableString: root.resources[tabBar.currentIndex]?.maxAvailableString ?? "--"
+                valueSuffix: root.resources[tabBar.currentIndex]?.valueSuffix ?? "%"
             }
         }
     }
@@ -79,6 +90,7 @@ StyledOverlayWidget {
         id: resourceSummary
         required property list<real> history
         required property string maxAvailableString
+        property string valueSuffix: "%"
         Layout.fillWidth: true
         Layout.fillHeight: true
         spacing: 12
@@ -86,7 +98,7 @@ StyledOverlayWidget {
         ColumnLayout {
             spacing: 2
             StyledText {
-                text: (resourceSummary.history[resourceSummary.history.length - 1] * 100).toFixed(1) + "%"
+                text: (resourceSummary.history[resourceSummary.history.length - 1] * 100).toFixed(1) + resourceSummary.valueSuffix
                 font {
                     family: Appearance.font.family.numbers
                     variableAxes: Appearance.font.variableAxes.numbers
