@@ -68,6 +68,9 @@ Singleton {
             // Reload files
             fileMeminfo.reload()
             fileStat.reload()
+            fileThermal0.reload()
+            fileThermal1.reload()
+            fileHwmon0t1.reload()
 
             // Parse memory and swap usage
             const textMeminfo = fileMeminfo.text()
