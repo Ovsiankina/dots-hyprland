@@ -8,6 +8,7 @@ alias sp='sudo pacman'
 alias cat='bat'
 alias clip='wl-copy'
 alias neofetch='fastfetch' # RIP neofetch   ( Apr 26, 2024 )
+alias zen='zen-browser'
 
 # ── fzf ───────────────────────────────────────────────────────────────
 alias fzf="fzf --preview='cat {}'"
