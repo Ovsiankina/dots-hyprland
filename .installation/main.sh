@@ -250,6 +250,27 @@ configure_kwallet_pam() {
 	fi
 }
 
+install_machine_defaults() {
+	local defaults_dir="$base/.installation/defaults"
+	local targets=(
+		"fuzzel/fuzzel_theme.ini:$XDG_CONFIG_HOME/fuzzel/fuzzel_theme.ini"
+		"kdeglobals:$XDG_CONFIG_HOME/kdeglobals"
+		"hypr/hyprland/colors.conf:$XDG_CONFIG_HOME/hypr/hyprland/colors.conf"
+		"hypr/hyprland/monitors.conf:$XDG_CONFIG_HOME/hypr/hyprland/monitors.conf"
+		"hypr/hyprlock/colors.conf:$XDG_CONFIG_HOME/hypr/hyprlock/colors.conf"
+	)
+
+	for entry in "${targets[@]}"; do
+		local src="$defaults_dir/${entry%%:*}"
+		local dst="${entry##*:}"
+		if [ ! -f "$dst" ]; then
+			mkdir -p "$(dirname "$dst")"
+			cp "$src" "$dst"
+			echo "  [defaults] $dst"
+		fi
+	done
+}
+
 symlink_with_stow() {
 	echo "Creating symlinks with stow ..."
 	x cd "$HOME/dotfiles"
@@ -293,6 +314,7 @@ main() {
 	printf "\e[36m[$0]: 2. Copying + Configuring\e[0m\n"
 	v mkdir -p $XDG_BIN_HOME $XDG_CACHE_HOME $OV_DOT $XDG_DATA_HOME
 	symlink_with_stow
+	install_machine_defaults
 	source_zsh
 
 	sleep 1

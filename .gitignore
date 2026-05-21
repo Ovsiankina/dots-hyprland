@@ -21,3 +21,11 @@ dots/.zsh/.zsh_history
 
 # Stow-managed symlinks (created by running stow from dots/)
 .zsh
+
+# Machine-specific files (colors from matugen, monitor layout)
+# Defaults live in .installation/defaults/ and are copied on fresh install
+dots/.config/fuzzel/fuzzel_theme.ini
+dots/.config/kdeglobals
+dots/.config/hypr/hyprland/colors.conf
+dots/.config/hypr/hyprland/monitors.conf
+dots/.config/hypr/hyprlock/colors.conf
