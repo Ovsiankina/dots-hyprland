@@ -9,22 +9,38 @@ function ls() {
     fi
 }
 
-function tree(){
+function tree() {
     eza -T
 }
 
 # zinit vim mode will auto execute this function automatically when needed
 function zvm_after_select_vi_mode() {
-	# NOTE: ${foo:u} expansion converts string to uppercase
-	# source: https://zsh.sourceforge.io/Doc/Release/Expansion.html
-	export ZVM_STARSHIP=${ZVM_MODE:u} # 
-  # case $ZVM_MODE in
-  #   n)  export ZVM="N" ;;
-  #   i)  export ZVM="I" ;;
-  #   v)  export ZVM="V" ;;
-  #   vl) export ZVM="VL" ;;
-  #   c)  export ZVM="C" ;;
-  #   r)  export ZVM="R" ;;
-  #   *)  export ZVM=" " ;;
-  # esac
+    # NOTE: ${foo:u} expansion converts string to uppercase
+    # source: https://zsh.sourceforge.io/Doc/Release/Expansion.html
+    export ZVM_STARSHIP=${ZVM_MODE:u} #
+    # case $ZVM_MODE in
+    #   n)  export ZVM="N" ;;
+    #   i)  export ZVM="I" ;;
+    #   v)  export ZVM="V" ;;
+    #   vl) export ZVM="VL" ;;
+    #   c)  export ZVM="C" ;;
+    #   r)  export ZVM="R" ;;
+    #   *)  export ZVM=" " ;;
+    # esac
+}
+
+function ov() {
+    local QS_PKGBUILD_DIR="$HOME/dotfiles/.installation/arch-packages/illogical-impulse/ii-quickshell-git"
+
+    case "$1" in
+        --rebuild-qs|-rqs)
+            echo "==> Rebuilding illogical-impulse-quickshell-git..."
+            (cd "$QS_PKGBUILD_DIR" && makepkg -si)
+            ;;
+        *)
+            echo "ov: unknown option '$1'"
+            echo "Usage: ov [--rebuild-qs|-rqs]"
+            return 1
+            ;;
+    esac
 }
