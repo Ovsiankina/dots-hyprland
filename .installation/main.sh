@@ -167,7 +167,7 @@ install_ovsiankina_AUR_meta_packages() {
 }
 
 install_illogical_impulse_meta_packages() {
-	metapkgs=(./arch-packages/illogical-impulse/ii-{audio,backlight,basic,fonts-themes,kde,portal,python,screencapture,toolkit,widgets,hyprland,microtex-git})
+	metapkgs=(./arch-packages/illogical-impulse/ii-{audio,backlight,basic,fonts-themes,kde,portal,python,screencapture,toolkit,quickshell-git,widgets,hyprland,microtex-git})
 
 	for i in "${metapkgs[@]}"; do
 		metainstallflags="--needed"
