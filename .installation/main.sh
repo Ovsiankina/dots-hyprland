@@ -258,6 +258,7 @@ install_machine_defaults() {
 		"hypr/hyprland/colors.conf:$XDG_CONFIG_HOME/hypr/hyprland/colors.conf"
 		"hypr/hyprland/monitors.conf:$XDG_CONFIG_HOME/hypr/hyprland/monitors.conf"
 		"hypr/hyprlock/colors.conf:$XDG_CONFIG_HOME/hypr/hyprlock/colors.conf"
+		"hypr/monitors.conf:$XDG_CONFIG_HOME/hypr/monitors.conf"
 	)
 
 	for entry in "${targets[@]}"; do
