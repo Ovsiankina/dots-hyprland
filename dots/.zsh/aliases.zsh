@@ -26,3 +26,5 @@ alias dwl='nmcli d w l'
 # ── Zellij ────────────────────────────────────────────────────────────
 alias tmux='zellij'
 alias ttmux='/bin/tmux'
+
+alias dolphin='dolphin . &>/dev/null'
