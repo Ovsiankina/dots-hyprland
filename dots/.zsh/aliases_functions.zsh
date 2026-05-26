@@ -13,6 +13,25 @@ function tree() {
     eza -T
 }
 
+# ── bkdown ──────────────────────────────────────────
+# Backup Downloads contents into Downloads/bk.
+# If bk already exists, items move directly into it.
+# Otherwise uses /tmp as staging before rename.
+bkdown() {
+  local downloads="$HOME/Downloads"
+  local target="$downloads/bk"
+
+  if [ -d "$target" ]; then
+    setopt localoptions extendedglob
+    mv "$downloads"/^bk(D) "$target"/ 2>/dev/null
+  else
+    local tmpdir="/tmp/bkdown.$$"
+    mkdir -p "$tmpdir"
+    mv "$downloads"/*(D) "$tmpdir"/ 2>/dev/null
+    mv "$tmpdir" "$target"
+  fi
+}
+
 # zinit vim mode will auto execute this function automatically when needed
 function zvm_after_select_vi_mode() {
     # NOTE: ${foo:u} expansion converts string to uppercase
