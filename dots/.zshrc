@@ -140,6 +140,14 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 # opencode
 export PATH=$HOME/.opencode/bin:$PATH
+export PATH="$HOME/.npm-global/bin:$PATH"
 
 # Hermes Agent — ensure ~/.local/bin is on PATH
 export PATH="$HOME/.local/bin:$PATH"
+
+# fnm
+FNM_PATH="/home/ovsiankina/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "$(fnm env --shell zsh)"
+fi
