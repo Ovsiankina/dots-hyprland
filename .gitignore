@@ -30,3 +30,6 @@ dots/.config/hypr/hyprland/colors.conf
 dots/.config/hypr/hyprland/monitors.conf
 dots/.config/hypr/hyprlock/colors.conf
 dots/.config/hypr/monitors.conf
+
+# Claude Code session/project dirs (can appear under any cwd)
+.claude/
