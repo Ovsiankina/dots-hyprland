@@ -30,6 +30,13 @@ dots/.config/hypr/hyprland/colors.conf
 dots/.config/hypr/hyprland/monitors.conf
 dots/.config/hypr/hyprlock/colors.conf
 dots/.config/hypr/monitors.conf
+dots/.config/hypr/monitors.lua
 
 # Claude Code session/project dirs (can appear under any cwd)
 .claude/
+
+# makepkg build artifacts under arch-packages (source clones, src/pkg dirs, built packages)
+.installation/arch-packages/**/src/
+.installation/arch-packages/**/pkg/
+.installation/arch-packages/**/*.pkg.tar.*
+.installation/arch-packages/illogical-impulse/ii-quickshell-git/quickshell/
