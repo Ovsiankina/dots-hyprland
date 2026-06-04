@@ -40,6 +40,12 @@ Variants {
         // Wallpaper
         property bool wallpaperIsVideo: Config.options.background.wallpaperPath.endsWith(".mp4") || Config.options.background.wallpaperPath.endsWith(".webm") || Config.options.background.wallpaperPath.endsWith(".mkv") || Config.options.background.wallpaperPath.endsWith(".avi") || Config.options.background.wallpaperPath.endsWith(".mov")
         property string wallpaperPath: wallpaperIsVideo ? Config.options.background.thumbnailPath : Config.options.background.wallpaperPath
+        // Hardcoded fallback so a missing/failed wallpaper can never produce a null image source
+        // (a null source broke the lock screen render). Covers BOTH the desktop wallpaper and the lock blur,
+        // since the blur samples this same wallpaper Image.
+        readonly property string fallbackWallpaper: "/home/ovsiankina/.config/quickshell/ii/assets/images/fallback_wallpaper.jpg"
+        property bool wallpaperLoadFailed: false
+        readonly property string effectiveWallpaperPath: wallpaperLoadFailed ? fallbackWallpaper : wallpaperPath
         property bool wallpaperSafetyTriggered: {
             const enabled = Config.options.workSafety.enable.wallpaper;
             const sensitiveWallpaper = (CF.StringUtils.stringListContainsSubstring(wallpaperPath.toLowerCase(), Config.options.workSafety.triggerCondition.fileKeywords));
@@ -89,13 +95,15 @@ Variants {
         }
 
         onWallpaperPathChanged: {
+            bgRoot.wallpaperLoadFailed = false; // retry the new configured path before falling back
             bgRoot.updateZoomScale();
             // Clock position gets updated after zoom scale is updated
         }
+        onEffectiveWallpaperPathChanged: bgRoot.updateZoomScale()
 
         // Wallpaper zoom scale
         function updateZoomScale() {
-            getWallpaperSizeProc.path = bgRoot.wallpaperPath;
+            getWallpaperSizeProc.path = bgRoot.effectiveWallpaperPath;
             getWallpaperSizeProc.running = true;
         }
         Process {
@@ -159,7 +167,8 @@ Variants {
                 property real effectiveValueY: Math.max(0, Math.min(1, valueY))
                 x: -(bgRoot.movableXSpace) - (effectiveValueX - 0.5) * 2 * bgRoot.movableXSpace
                 y: -(bgRoot.movableYSpace) - (effectiveValueY - 0.5) * 2 * bgRoot.movableYSpace
-                source: bgRoot.wallpaperSafetyTriggered ? "" : bgRoot.wallpaperPath
+                source: bgRoot.wallpaperSafetyTriggered ? "" : bgRoot.effectiveWallpaperPath
+                onStatusChanged: if (status === Image.Error && !bgRoot.wallpaperLoadFailed) bgRoot.wallpaperLoadFailed = true
                 fillMode: Image.PreserveAspectCrop
                 Behavior on x {
                     NumberAnimation {
