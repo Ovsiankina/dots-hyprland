@@ -7,7 +7,7 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 source "${ZINIT_HOME}/zinit.zsh"
 
-# TODO: update automatically zinit periodically with `zinit 
+# TODO: update automatically zinit periodically with `zinit
 # starship loaded with zinit might be better ?
 
 ZINIT_MODE=light #'load' for debug (slower)
@@ -51,7 +51,7 @@ HISTSIZE=2000
 SAVEHIST=$HISTSIZE
 HISTDUP=erase
 
-setopt appendhistory 
+setopt appendhistory
 setopt sharehistory
 setopt hist_ignore_space # prevent command hist when a space is put before it
 setopt hist_ignore_all_dups
@@ -83,13 +83,13 @@ stow() {
   local arg
   for arg in "$@"; do
     case "$arg" in
-      -t|--target|--target=*)
-        has_target=1
-        ;;
+    -t | --target | --target=*)
+      has_target=1
+      ;;
     esac
   done
 
-  if (( has_target )); then
+  if ((has_target)); then
     command stow "$@"
   else
     command stow --target="$HOME" "$@"
@@ -107,7 +107,6 @@ eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 eval "$(zoxide init --cmd cd zsh)"
 
-
 # ==============================================
 # Terminal colors
 # ==============================================
@@ -119,7 +118,7 @@ eval "$(zoxide init --cmd cd zsh)"
 # Bonus (slows down startup time)
 # ==============================================
 
-# wal --preview 
+# wal --preview
 # neofetch
 # krabby random
 # cbonsai -p
