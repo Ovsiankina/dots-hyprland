@@ -22,9 +22,10 @@ alias dwr='nmcli d w r'
 alias dwc='nmcli d w c --ask'
 alias dwl='nmcli d w l'
 
-# ── Zellij ────────────────────────────────────────────────────────────
-alias tmux='zellij'
-alias ttmux='/bin/tmux'
+# ── Herdr (multiplexer) ───────────────────────────────────────────────
+# Both point at herdr now; run `/bin/tmux` or `zellij` directly if ever needed.
+alias tmux='herdr'
+alias ttmux='herdr'
 
 # ── Zen ───────────────────────────────────────────────────────────────
 alias zen='zen-browser'

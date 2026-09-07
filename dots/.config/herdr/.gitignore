@@ -1,0 +1,5 @@
+# herdr writes runtime state into this dir (sockets, logs, installed plugins,
+# session + agent-detection state). Only the config is worth tracking.
+*
+!.gitignore
+!config.toml
