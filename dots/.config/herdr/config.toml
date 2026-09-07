@@ -1,3 +1,4 @@
+onboarding = false
 # herdr configuration
 # Goal: replicate David's tmux keybindings so herdr can be trial-driven as a
 # multiplexer without touching the existing tmux setup.
@@ -85,7 +86,7 @@ edit_scrollback = "prefix+e"
 settings                 = ""   # herdr settings UI
 resize_mode              = ""   # herdr modal resize (tmux resizes directly, above)
 toggle_sidebar           = ""   # herdr sidebar
-goto                     = ""   # herdr goto palette
+goto                     = "prefix+g"   # Navigate mode: cursor into sidebar, hjkl/arrows to browse agents, Enter selects
 open_notification_target = ""   # herdr notifications
 new_workspace            = ""
 close_workspace          = ""
@@ -96,7 +97,10 @@ new_worktree             = ""   # git worktrees
 rename_pane              = ""   # herdr pane naming (tmux has none)
 previous_agent           = ""   # agent panel
 next_agent               = ""
-focus_agent              = ""
+# Prefix-free direct jump to a specific agent: Alt+1 -> agent 1, Alt+2 -> agent 2, ...
+# Same "alt = direct nav" family as alt+h/alt+l tab nav. Bare alt+N never collides
+# with switch_tab (prefix+1..9 = alt+w then number).
+focus_agent              = "alt+1..9"
 
 # --- Neovim-aware seamless pane navigation (vim-tmux-navigator equivalent) --
 # Plugin: herdr-splits (herdr plugin install lmilojevicc/herdr-splits.nvim)
