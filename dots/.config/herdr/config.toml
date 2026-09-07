@@ -85,7 +85,7 @@ edit_scrollback = "prefix+e"
 # Per user: leave these empty to evaluate later. They have no tmux equivalent.
 settings                 = ""   # herdr settings UI
 resize_mode              = ""   # herdr modal resize (tmux resizes directly, above)
-toggle_sidebar           = ""   # herdr sidebar
+toggle_sidebar           = "prefix+p"   # hide/unhide (toggle) the sidebar/agent panel
 goto                     = "prefix+g"   # Navigate mode: cursor into sidebar, hjkl/arrows to browse agents, Enter selects
 open_notification_target = ""   # herdr notifications
 new_workspace            = ""
