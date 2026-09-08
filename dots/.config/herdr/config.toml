@@ -14,6 +14,175 @@ onboarding = false
 # Reload after edits:  herdr server reload-config
 # Validate:            herdr config check
 
+# ---------------------------------------------------------------------------
+# venommono — monochrome black/white + a single venom red (#fc302e) accent.
+# Mirrors ~/.config/nvim/lua/themes/venommono.lua so herdr's chrome and the
+# editor inside it read as one surface.
+#
+# Grey ramp is monochrome.nvim's own HSLuv palette (see nvim
+# lua/lib/monochrome_base.lua), NOT hand-guessed values:
+#   bg #0e0e0e  bg_alt #191919  fg #eeeeee
+#   gray1..9 = 222222 353535 494949 5e5e5e 747474 8b8b8b a3a3a3 bbbbbb d4d4d4
+#
+# Rule: chrome is grey, the accent is venom red, and hue is reserved for
+# state. Only red / yellow / green carry colour, so an agent status mark is
+# the only saturated thing on screen and is impossible to miss.
+# ---------------------------------------------------------------------------
+[theme]
+# Minimal dark base; every token herdr exposes is overridden below, so this
+# only backstops anything not covered by [theme.custom].
+name = "vesper"
+
+[theme.custom]
+# --- greys: text -----------------------------------------------------------
+# NOTE: overlay0/overlay1 are NOT border colours despite the name — herdr uses
+# them for real UI text. Verified by rendering herdr with one marker colour per
+# token and decoding the SGR codes:
+#   overlay0 -> "machines" / "menu" / "agents" / "Local" sidebar labels,
+#               and body text like "Local: online. Select a connected machine."
+#   overlay1 -> inactive tab names in the tab bar
+#   subtext0 -> unfocused workspace names
+#   text     -> focused workspace name
+# The dividers (│ ─) are surface_dim, not the overlays.
+#
+# So the whole dim ramp is shifted ~2 rungs up the monochrome ladder. Every
+# value below clears 4.5:1 against the surface it actually lands on.
+text     = "#eeeeee"   # fg      — primary text            (14.9:1 on active row)
+subtext0 = "#bbbbbb"   # gray8   — unfocused workspaces     (10.2:1 on sidebar)
+overlay1 = "#a3a3a3"   # gray7   — inactive tab names        (6.3:1 on surface0)
+overlay0 = "#8b8b8b"   # gray6   — sidebar labels, body text (5.7:1 on sidebar)
+
+# --- greys: surfaces (darkest to lightest) ---------------------------------
+panel_bg      = "#0e0e0e"  # bg          — pane area; identical to nvim's bg
+sidebar_bg    = "#0b0b0b"  # statusline  — sidebar sits a touch below the panes
+# Dividers (│ ─), not a background — herdr only ever uses this as a foreground
+# in the sidebar. #191919 was 1.2:1 on sidebar_bg (invisible) and gray2 only
+# reached 1.6:1; gray4 lands at 3.0:1 — the panel structure is legible while
+# the lines stay quiet enough not to compete with text.
+surface_dim   = "#5e5e5e"  # gray4
+active_row_bg = "#1f1f1f"  # focused sidebar row
+surface0      = "#222222"  # gray1      — inactive tab background
+surface1      = "#353535"  # gray2
+selection_bg  = "#353535"  # gray2      — visible without turning blue
+
+# --- the one accent --------------------------------------------------------
+# Same #fc302e venommono puts on types, the `fn` keyword and brackets.
+# herdr spends it on highlights, borders and navigate-mode UI.
+accent = "#fc302e"
+
+# --- state colours: KEPT (notifications + agent statuses) ------------------
+# Verified by rendering herdr with a fake agent driven into each state:
+#   red    -> ● blocked   yellow -> ● working   green -> ○ idle
+#
+# herdr has exactly four agent states — working, blocked, idle, unknown. There
+# is NO error/crashed state, so the `red` token never meant "it died"; blocked
+# means "this agent is waiting on you". See the detection manifest at
+# ~/.local/state/herdr/agent-detection/remote/claude.toml: an AskUserQuestion
+# prompt matches `live_blocked_form` and a permission prompt matches
+# `bash_permission_prompt` — both resolve to the same `blocked`. herdr cannot
+# tell a question apart from a permission request.
+#
+# So `red` is deliberately NOT red here. Purple reads as "your turn" instead of
+# "something broke", and keeps venom red exclusive to the accent so the two
+# never get confused at a glance.
+red    = "#a855f7"   # ● blocked — agent is waiting on you (question OR permission)
+yellow = "#facc15"   # ● working
+green  = "#4ade80"   # ○ idle / done
+
+# --- everything else: drained to grey --------------------------------------
+# herdr's remaining palette slots are Catppuccin-shaped and decorative here.
+# Mapped onto distinct rungs of the grey ramp so anything herdr paints with
+# them stays distinguishable by lightness instead of by hue.
+blue  = "#bbbbbb"  # gray8
+peach = "#a3a3a3"  # gray7
+mauve = "#8b8b8b"  # gray6
+teal  = "#747474"  # gray5
+
+[ui]
+# Separate from theme.custom.accent: this one drives highlights, borders and
+# the navigate-mode (prefix+g) cursor. Kept on the same venom red so nothing
+# in the chrome falls back to herdr's default cyan.
+accent = "#fc302e"
+
+# Separate split panes with a gap instead of sharing one divider line.
+# herdr's gap is a boolean (one terminal cell), not a pixel count — this is
+# the minimum spacing herdr can draw, restored after pane_gaps = false (zero
+# space, shared divider) turned out to read as no border at all.
+pane_gaps = true
+
+# Unnamed panes render as "pane 1 / pane 2 / pane 3", which says nothing. This
+# falls back to herdr's terminal title whenever no manual name is set — so the
+# native sidebar/navigate view gains descriptions without an fzf overlay.
+#
+# Claude panes no longer rely on that fallback: they name themselves. Claude
+# Code already invents a title per session (the same string claude.ai shows as
+# the conversation title) and pushes it out as the terminal title; the Stop
+# hook in ~/.claude/hooks/herdr-context.py cuts it to two words and writes it
+# as the pane's real `label` via pane.rename. No extra model call — the title
+# IS the model's own name for the session, it just needed shortening:
+#
+#   'Herdr config plugin setup'        -> config plugin
+#   'Rename herdr panes automatically' -> rename panes
+#   'Herdr floating terminals support' -> floating terminals
+#   'Synapse installation setup'       -> synapse installation
+#
+# A name set by hand (prefix+shift+p, below) always wins: once the live label
+# differs from the one the hook wrote, that pane is marked manual under
+# ~/.local/state/herdr/claude-pane-labels/ and the hook leaves it alone. The
+# label is cleared again on SessionEnd, when the pane goes back to a shell.
+show_agent_labels_on_pane_borders = true
+
+# The agent rows below carry two extra lines of prose; at the default 26 they
+# truncate to uselessness. 34 is still under the sidebar_max_width of 36.
+sidebar_width = 34
+
+# ---------------------------------------------------------------------------
+# Agent rows: say WHY an agent is blocked and WHAT it is working on.
+#
+# herdr only knows `blocked` — it cannot tell a question from a permission
+# request (see the note on `red` above). So Claude Code reports the reason
+# itself through hooks in ~/.claude/hooks/herdr-context.py, which push two
+# metadata tokens over the socket API:
+#   $why   "? Extra hues"                  — an AskUserQuestion is waiting
+#          "! Bash: rm -rf dist/ build"    — a permission request is waiting
+#   $task  the prompt that started the current turn, so coming back to a pane
+#          after an hour tells you what it was doing without reading scrollback
+#
+# Rows with an empty token collapse, so an agent that is not blocked shows no
+# $why line at all and stays two rows tall:
+#
+#   ● dotfiles                        ● api
+#     ? Extra hues                      claude · port the venommono t…
+#     claude · increase the visibil…
+#
+# Purple matches theme.custom.red — the same "your turn" signal as the ● dot.
+# Drop the $task row if three lines per agent turns out to be too tall.
+#
+# `pane` is a real built-in token (verified: `herdr config check` rejects an
+# invented name with "unknown sidebar token"). It renders the pane's `label` —
+# the short name the Stop hook writes — falling back to herdr's own "pane N"
+# the way the `tab` token falls back to a tab number.
+# Without it the identity row was workspace · tab only, so every Claude pane
+# sharing a tab produced an identical row. Full built-in list:
+#   state_icon state_text machine workspace tab pane agent
+#   terminal_title terminal_title_stripped
+# At sidebar_width = 34 all four can overflow; drop "tab" from the row if it
+# truncates, since the pane label is the more specific of the two.
+# ---------------------------------------------------------------------------
+[ui.sidebar.agents]
+row_gap = 0
+rows = [
+  ["state_icon", "workspace", "tab", "pane"],
+  [{ token = "$why", fg = "#a855f7" }],
+  ["agent", { token = "$task", dim = true }],
+  # $task only exists when the Claude hook has fired for that pane. herdr
+  # derives terminal_title_stripped natively for EVERY detected agent pane, so
+  # this row is the reliable description — it is the same field the fzf
+  # pane-navigator overlay renders, just without the overlay.
+  # Costs a 4th line per agent; delete this row (or the $task one) if too tall.
+  [{ token = "terminal_title_stripped", dim = true }],
+]
+
 [terminal]
 # tmux: bind C set default-path "#{pane_current_path}"
 # User wants new panes/tabs to inherit the source pane's cwd by default, not
@@ -27,7 +196,13 @@ prefix = "alt+w"
 
 # --- Reload config ---------------------------------------------------------
 # tmux: bind r source-file ~/.tmux.conf
-reload_config = "prefix+r"
+# An action accepts an ARRAY of bindings, so prefix+r keeps tmux parity while
+# alt+r gives a direct one-key reload. Confirmed in herdr's own help overlay
+# (prefix+?), which lists "prefix+r / alt+r  reload config" — both are live.
+# Note the array is the only multi-bind form: "prefix+r alt+r" is rejected.
+# alt+r is free here; the alt family is otherwise alt+w (prefix), alt+h/alt+l
+# (tab nav), alt+shift+hjkl (resize) and alt+1..9 (focus agent).
+reload_config = ["prefix+r", "alt+r"]
 
 # --- Pane focus (vim motions) ---------------------------------------------
 # tmux: bind h/j/k/l select-pane -L/-D/-U/-R
@@ -62,7 +237,12 @@ rename_workspace = "prefix+period"
 
 # --- Session / workspace picker -------------------------------------------
 # tmux: bind f choose-session
-workspace_picker = "prefix+f"
+# herdr's built-in workspace_picker is NOT an overlay -- it just parks a cursor
+# in the sidebar, where vertical movement is arrow-only (navigate_workspace_up/
+# down default to "up"/"down", because j/k are already spent on pane movement).
+# That is not choose-session. Left unbound; prefix+f now opens the
+# pane-navigator overlay instead -- see [[keys.command]] at the bottom.
+workspace_picker = ""
 
 # --- Detach ----------------------------------------------------------------
 # tmux default: prefix+d detach-client
@@ -86,15 +266,22 @@ edit_scrollback = "prefix+e"
 settings                 = ""   # herdr settings UI
 resize_mode              = ""   # herdr modal resize (tmux resizes directly, above)
 toggle_sidebar           = "prefix+p"   # hide/unhide (toggle) the sidebar/agent panel
-goto                     = "prefix+g"   # Navigate mode: cursor into sidebar, hjkl/arrows to browse agents, Enter selects
+goto                     = "prefix+b"   # Navigate mode: cursor into sidebar, hjkl/arrows to browse agents, Enter selects. prefix+b to mimic oil.nvim's key
 open_notification_target = ""   # herdr notifications
-new_workspace            = ""
+# tmux has no equivalent (a new session means leaving tmux), so this is the
+# first herdr-only feature taking a key. prefix+w is free here because
+# workspace_picker was moved off herdr's default prefix+w onto prefix+f.
+new_workspace            = "prefix+w"
 close_workspace          = ""
 previous_workspace       = ""
 next_workspace           = ""
 switch_workspace         = ""
 new_worktree             = ""   # git worktrees
-rename_pane              = ""   # herdr pane naming (tmux has none)
+# Left unbound originally because tmux has no pane naming at all. But the
+# fallback label above only covers panes herdr can detect an agent/title for;
+# a plain shell still needs a manual name. Restored to herdr's default key,
+# which is free (prefix+p is toggle_sidebar; prefix+shift+p is not).
+rename_pane              = "prefix+shift+p"
 previous_agent           = ""   # agent panel
 next_agent               = ""
 # Prefix-free direct jump to a specific agent: Alt+1 -> agent 1, Alt+2 -> agent 2, ...
@@ -128,3 +315,132 @@ command = "herdr-splits.nav-up"
 key = "ctrl+l"
 type = "plugin_action"
 command = "herdr-splits.nav-right"
+
+# --- herdr-resurrect: snapshots + named spaces ------------------------------
+# Plugin: ntindle/herdr-resurrect (herdr plugin install ntindle/herdr-resurrect)
+# tmux-resurrect + tmux-continuum for herdr. herdr already restores the *shape*
+# of a session on restart (workspaces/tabs/panes/cwd) but brings panes back as
+# bare shells; this plugin re-runs what was actually in them — the ssh tunnels,
+# the dev servers — and relaunches agents with `claude --resume <session-id>`.
+#
+# Autosave is event-driven and ON by default (fires on pane/workspace create,
+# close, exit and agent-detected; debounced to one write per 20s), so the save
+# key below is for taking a deliberate restore point, not for routine use.
+# Snapshots: ~/.local/state/herdr/plugins/ntindle.herdr-resurrect/snapshots/
+#
+# Keys mirror tmux-resurrect's own prefix+Ctrl-s / prefix+Ctrl-r, the same way
+# everything else here mirrors the tmux muscle memory. Verified collision-free
+# against every binding above via `herdr config check`.
+[[keys.command]]
+key = "prefix+ctrl+s"
+type = "plugin_action"
+command = "ntindle.herdr-resurrect.save"
+description = "resurrect: save snapshot"
+
+[[keys.command]]
+key = "prefix+ctrl+r"
+type = "plugin_action"
+command = "ntindle.herdr-resurrect.restore"
+description = "resurrect: restore last snapshot"
+
+# Dry run — prints the plan (which panes get which command back) and changes
+# nothing. Worth pressing before ctrl+r on a session you care about.
+[[keys.command]]
+key = "prefix+ctrl+p"
+type = "plugin_action"
+command = "ntindle.herdr-resurrect.restore-preview"
+description = "resurrect: preview restore (dry run)"
+
+# --- named spaces ----------------------------------------------------------
+# Different feature from snapshots: a *library* of reusable single-workspace
+# layouts ("hermes tunnel + agents", "dotfiles"), saved by name and opened as a
+# brand-new workspace each time. Snapshots = crash recovery; spaces = templates.
+# Both overlays shell out to fzf (/usr/bin/fzf, present).
+# Stored one file per name in .../ntindle.herdr-resurrect/spaces/<name>.json
+[[keys.command]]
+key = "prefix+shift+s"
+type = "plugin_action"
+command = "ntindle.herdr-resurrect.save-space"
+description = "resurrect: save this space as…"
+
+[[keys.command]]
+key = "prefix+shift+o"
+type = "plugin_action"
+command = "ntindle.herdr-resurrect.open-space"
+description = "resurrect: open saved space…"
+
+# Deliberately unbound (CLI is enough, and it deletes things):
+#   ntindle.herdr-resurrect.delete-space  — fzf-pick a space and delete it
+#   ntindle.herdr-resurrect.snapshots     — list snapshots
+
+# --- choose-tree overlay (tmux `bind f choose-session` equivalent) ----------
+# Was pane-navigator (fzf-based), then hasr (Go/Bubbletea) -- both tried and
+# dropped: pane-navigator on look/ergonomics, hasr for fine-grained control
+# once oily was there to compare against directly. oily wins on that exact
+# point -- rows/colours read live from this config, not a static patch, and
+# every behaviour is in a repo we own: ~/Projects/oily-herdr, linked locally,
+# not yet installed/pushed. j/k move, h/l fold, x arms close (y/n confirm),
+# r rename, tab marks for multi-select, / search, a agents-only.
+[[keys.command]]
+key = "prefix+f"
+type = "plugin_action"
+command = "oily.open"
+description = "navigate workspaces, tabs, and panes; close/rename in place"
+
+# --- floating scratch terminal (zellij floating-pane equivalent) ------------
+# tmux has `display-popup -E`; zellij has floating panes. herdr's own version is
+# type = "popup": a session-modal terminal drawn centred over the panes, which
+# per the default config opens "without changing the tab layout" — the splits
+# underneath keep their geometry and their processes.
+#
+# NOT a toggle, and this is a herdr constraint, not a config mistake. The server
+# models the popup as ONE global slot: `herdr api schema` exposes `popup.close`
+# taking EmptyParams (no pane id), and the binary carries the guard strings
+# "a popup pane is already open" / `ui_busy`. So a second prefix+t while the
+# popup is up hits that guard instead of closing it.
+#   close with: ctrl+d / `exit`   (the shell dies, the popup goes with it)
+#
+# Size is the OUTER box including the border; the schema accepts an integer of
+# terminal cells or the pattern ^(100|[1-9][0-9]?)%$ — so "100%" is legal but
+# "0%" is not. 70x60 leaves the surrounding panes visible as context.
+#
+# The border label reads "popup" and CANNOT be changed in 0.9.0. Do not spend
+# another evening on this — the label has exactly one source, and nothing can
+# reach it. From src/server/client_shell.rs:429 (v0.9.0):
+#
+#     let title = app.state.terminals
+#         .get(&popup.terminal_id)
+#         .and_then(|terminal| terminal.manual_label.clone())
+#         .unwrap_or_else(|| "popup".to_owned());
+#
+# So the label is `manual_label` — the name pane.rename writes — or the literal
+# "popup". Three consequences, each checked against the v0.9.0 source:
+#   * The terminal title is never consulted, so an OSC 0 sequence from inside
+#     the popup does nothing. (Tried it; that is why this is `zsh` again.)
+#   * pane.rename cannot reach it. handle_pane_rename (src/app/api/panes.rs:1463)
+#     resolves the terminal via state.workspaces[ws].terminal_id(pane_id), but a
+#     popup lives in state.popup_pane and is in no workspace — so it answers
+#     pane_not_found. The popup is likewise absent from `herdr api snapshot`.
+#   * No config key exists: title, name, label and pane_title are all rejected
+#     by `herdr config check` as unknown, and the published v0.9.0 config
+#     reference documents no such field.
+# Revisit only if a herdr release adds a popup title. Upstream would need to
+# either honour the terminal title here or let pane.rename see popup_pane.
+#
+# Inline commands are safe, contrary to what the Windows-only note in herdr's
+# docs implies: on Linux the command goes through /bin/sh -c verbatim
+# (platform/linux.rs:92 raw_command_argv -> pane_custom_command_pty_builder),
+# so quotes, pipes and $VAR all work and no wrapper script is needed.
+#
+# UNVERIFIED — check on first use, both are one keypress:
+#   1. whether [terminal] new_cwd = "follow" above reaches popups. Its doc line
+#      names "new panes, tabs, and workspaces" and pointedly not popups, so the
+#      scratchpad may open in $HOME instead of the invoking pane's cwd.
+#   2. whether esc dismisses the popup (no such binding is exposed in [keys]).
+[[keys.command]]
+key = "prefix+t"
+type = "popup"
+command = "zsh"
+width = "70%"
+height = "60%"
+description = "scratch terminal"
