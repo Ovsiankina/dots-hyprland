@@ -32,8 +32,12 @@ dots/.config/hypr/hyprlock/colors.conf
 dots/.config/hypr/monitors.conf
 dots/.config/hypr/monitors.lua
 
-# Claude Code session/project dirs (can appear under any cwd)
+# Claude Code session/project dirs (can appear under any cwd).
+# Unanchored, so it matches at every depth -- including the packaged config we
+# DO track, hence the negation. Order matters: the re-include must come second,
+# and must name the directory itself (git never descends into an excluded dir).
 .claude/
+!/dots/.claude/
 
 # makepkg build artifacts under arch-packages (source clones, src/pkg dirs, built packages)
 .installation/arch-packages/**/src/

@@ -130,7 +130,38 @@ install_ovsiankina_aur_meta_packages() {
 symlink_with_stow() {
 	printf "${STY_CYAN}[$0]: Creating symlinks with stow...${STY_RST}\n"
 	x cd "$HOME/dotfiles" || exit
+
+	# --adopt absorbs any real file sitting where a symlink belongs INTO the repo,
+	# overwriting the committed version. That is what we want on a fresh install
+	# (end4's installer leaves real files behind), but on a re-run against an
+	# already-configured machine it can swallow a stub config and bury the real
+	# one as an ordinary `modified` file -- no conflict, nothing to stop you.
+	# So: snapshot dots/ before, compare after, and shout if anything was adopted.
+	local before after adopted
+	before="$(git status --porcelain -- dots/ 2>/dev/null || true)"
+
+	# ~/.claude must exist as a REAL directory before stowing. dots/.claude carries
+	# only config (CLAUDE.md, settings.json, hooks/, skills/); the rest of ~/.claude
+	# is machine state -- projects/, sessions/, history.jsonl, .credentials.json.
+	# Stow folds a whole tree into ONE symlink when the target is missing, so on a
+	# fresh machine it would create ~/.claude -> dotfiles/dots/.claude and Claude
+	# Code would then write that state, credentials included, into the repo.
+	# With the directory present, stow descends and links only the four leaves.
+	x mkdir -p "$HOME/.claude"
+
 	v stow --adopt dots
+
+	after="$(git status --porcelain -- dots/ 2>/dev/null || true)"
+
+	if [ "$before" != "$after" ]; then
+		adopted="$(comm -13 <(printf '%s\n' "$before" | sort) <(printf '%s\n' "$after" | sort) || true)"
+		printf "\n${STY_RED}${STY_BOLD}[$0]: WARNING - stow --adopt absorbed live files into the repo${STY_RST}\n"
+		printf "${STY_RED}The versions on disk overwrote the committed ones in dots/:${STY_RST}\n"
+		printf "${STY_RED}%s${STY_RST}\n" "$adopted"
+		printf "${STY_RED}Review before committing:  git -C $HOME/dotfiles diff -- dots/${STY_RST}\n"
+		printf "${STY_RED}Restore repo versions:     git -C $HOME/dotfiles checkout -- dots/${STY_RST}\n\n"
+	fi
+
 	x cd "$HOME" || exit
 }
 
