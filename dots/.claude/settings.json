@@ -1,17 +1,4 @@
 {
-  "_comment": [
-    "This file is STOWED: ~/.claude/settings.json is a symlink into",
-    "~/dotfiles/dots/.claude/settings.json. Claude Code edits this file itself",
-    "(e.g. when you approve a permission with 'always'). If it writes via",
-    "temp-file + rename rather than in place, that rename REPLACES the symlink",
-    "with a real file and the repo copy silently goes stale.",
-    "CHECK: ls -la ~/.claude/settings.json -- if it no longer shows '->', this",
-    "file needs a copy step in main.sh instead of a stow link.",
-    "Paths use ${CLAUDE_CONFIG_DIR:-$HOME/.claude} and MUST stay double-quoted;",
-    "single quotes block shell expansion and every hook dies silently.",
-    "JSON has no comments -- // breaks the parser and Claude Code drops the whole",
-    "file (measured 2026-09-08), which is why this note is a key."
-  ],
   "permissions": {
     "allow": [
       "Bash(sqlite3:*)",
@@ -110,13 +97,27 @@
       "effortLevel": "high"
     },
     "claude-opus-5": {
-      "effortLevel": "high"
+      "effortLevel": "low"
     },
     "claude-fable-5": {
       "effortLevel": "high"
     }
   },
+  "promptSuggestionEnabled": false,
   "skipWorkflowUsageWarning": true,
   "verbose": true,
-  "agentPushNotifEnabled": true
+  "agentPushNotifEnabled": true,
+  "_comment": [
+    "This file is STOWED: ~/.claude/settings.json is a symlink into",
+    "~/dotfiles/dots/.claude/settings.json. Claude Code edits this file itself",
+    "(e.g. when you approve a permission with 'always'). If it writes via",
+    "temp-file + rename rather than in place, that rename REPLACES the symlink",
+    "with a real file and the repo copy silently goes stale.",
+    "CHECK: ls -la ~/.claude/settings.json -- if it no longer shows '->', this",
+    "file needs a copy step in main.sh instead of a stow link.",
+    "Paths use ${CLAUDE_CONFIG_DIR:-$HOME/.claude} and MUST stay double-quoted;",
+    "single quotes block shell expansion and every hook dies silently.",
+    "JSON has no comments -- // breaks the parser and Claude Code drops the whole",
+    "file (measured 2026-09-08), which is why this note is a key."
+  ]
 }
