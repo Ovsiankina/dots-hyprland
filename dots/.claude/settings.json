@@ -8,7 +8,7 @@
       "Bash(systemctl --user list-timers*)"
     ]
   },
-  "model": "sonnet",
+  "model": "opus",
   "hooks": {
     "SessionStart": [
       {
@@ -97,7 +97,7 @@
       "effortLevel": "high"
     },
     "claude-opus-5": {
-      "effortLevel": "low"
+      "effortLevel": "high"
     },
     "claude-fable-5": {
       "effortLevel": "high"
