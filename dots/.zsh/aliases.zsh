@@ -4,7 +4,7 @@
 # alias ls='eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions'
 # alias grep='grep --color=auto'
 alias grep='rg'
-alias sp='sudo pacman'
+alias sp='sudo archmage' # Do not alias `pacman` to ensure proper fallback if archmage fails
 alias cat='bat'
 alias clip='wl-copy'
 alias neofetch='fastfetch' # RIP neofetch   ( Apr 26, 2024 )

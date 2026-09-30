@@ -58,6 +58,22 @@ install_npm_globals() {
 	v sudo npm i -g tree-sitter-cli pyright
 }
 
+install_archmage() {
+	printf "${STY_CYAN}[$0]: Installing archmage (latest release)...${STY_RST}\n"
+	# releases/latest/download/ redirects to the newest release's asset, so there
+	# is no tag to bump here. An arch without a published binary 404s under -f
+	# instead of installing something that cannot run.
+	local url="https://github.com/Ovsiankina/archmage/releases/latest/download/archmage-linux-$(uname -m)"
+	local tmp
+	tmp="$(mktemp)"
+
+	x curl -fL -o "$tmp" "$url"
+	# /usr/bin is where archmage's own `make install` puts it (BINDIR=/bin).
+	x sudo install -Dm755 "$tmp" /usr/bin/archmage
+	rm -f "$tmp"
+	printf "${STY_CYAN}[$0]: archmage installed to /usr/bin/archmage${STY_RST}\n"
+}
+
 install_zsh_default() {
 	printf "${STY_CYAN}[$0]: Setting ZSH as default shell...${STY_RST}\n"
 	v chsh -s "$(which zsh)"
@@ -231,6 +247,7 @@ main() {
 	v install_tmux_plugins
 	v install_qwerty_fr
 	v install_npm_globals
+	v install_archmage
 	v install_zsh_default
 
 	# Clean up directories that end4's installer copied as real files,
