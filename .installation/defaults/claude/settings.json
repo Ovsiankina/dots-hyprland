@@ -1,0 +1,7 @@
+{
+  "statusLine": {
+    "type": "command",
+    "command": "python3 \"${CLAUDE_CONFIG_DIR:-$HOME/.claude}/hooks/herdr-statusbar.py\"",
+    "padding": 0
+  }
+}

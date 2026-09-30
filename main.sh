@@ -141,12 +141,13 @@ symlink_with_stow() {
 	before="$(git status --porcelain -- dots/ 2>/dev/null || true)"
 
 	# ~/.claude must exist as a REAL directory before stowing. dots/.claude carries
-	# only config (CLAUDE.md, settings.json, hooks/, skills/); the rest of ~/.claude
-	# is machine state -- projects/, sessions/, history.jsonl, .credentials.json.
+	# only CLAUDE.md and hooks/herdr-statusbar.py; the rest of ~/.claude is machine
+	# state -- settings.json, skills/, projects/, sessions/, history.jsonl,
+	# .credentials.json.
 	# Stow folds a whole tree into ONE symlink when the target is missing, so on a
 	# fresh machine it would create ~/.claude -> dotfiles/dots/.claude and Claude
 	# Code would then write that state, credentials included, into the repo.
-	# With the directory present, stow descends and links only the four leaves.
+	# With the directory present, stow descends and links only CLAUDE.md and hooks.
 	x mkdir -p "$HOME/.claude"
 
 	v stow --adopt dots
@@ -163,6 +164,37 @@ symlink_with_stow() {
 	fi
 
 	x cd "$HOME" || exit
+}
+
+seed_claude_settings() {
+	# ~/.claude/settings.json is NOT stowed: Claude Code rewrites it on every
+	# /model, /effort and "always allow", so a tracked copy is permanent churn.
+	# Only statusLine is ours -- a pointer to the stowed hooks/herdr-statusbar.py --
+	# so set that one key and leave the rest of the file to the machine.
+	printf "${STY_CYAN}[$0]: Seeding Claude Code statusline...${STY_RST}\n"
+	local src="$REPO_ROOT/.installation/defaults/claude/settings.json"
+	local dst="$HOME/.claude/settings.json"
+	local tmp
+
+	if ! command -v jq >/dev/null 2>&1; then
+		printf "${STY_YELLOW}[$0]: jq not found, skipping Claude statusline.${STY_RST}\n"
+		return 0
+	fi
+
+	# A link left over from when this file was stowed now points at nothing.
+	if [ -L "$dst" ] && [ ! -e "$dst" ]; then
+		x rm "$dst"
+	fi
+	[ -f "$dst" ] || echo '{}' >"$dst"
+
+	# Not wrapped in x: x echoes to stdout, which would land in the redirect.
+	tmp="$(mktemp)"
+	if jq -s '.[0] + .[1]' "$dst" "$src" >"$tmp"; then
+		x mv "$tmp" "$dst"
+	else
+		rm -f "$tmp"
+		printf "${STY_YELLOW}[$0]: Could not merge statusline into $dst, left untouched.${STY_RST}\n"
+	fi
 }
 
 ################################################################################
@@ -211,6 +243,7 @@ main() {
 	# Step 3: Stow dotfiles
 	printf "\n${STY_BOLD}${STY_CYAN}[3/3] Creating dotfile symlinks...${STY_RST}\n"
 	v symlink_with_stow
+	v seed_claude_settings
 
 	printf "\n${STY_BOLD}${STY_CYAN}===== SETUP COMPLETE =====${STY_RST}\n"
 	printf "${STY_CYAN}Next steps:${STY_RST}\n"

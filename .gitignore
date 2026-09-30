@@ -38,6 +38,13 @@ dots/.config/hypr/monitors.lua
 # and must name the directory itself (git never descends into an excluded dir).
 .claude/
 !/dots/.claude/
+# ...but of that config, track only the preferences and the statusline script.
+# settings.json, skills/ and the herdr-managed hooks are machine state.
+/dots/.claude/*
+!/dots/.claude/CLAUDE.md
+!/dots/.claude/hooks/
+/dots/.claude/hooks/*
+!/dots/.claude/hooks/herdr-statusbar.py
 
 # makepkg build artifacts under arch-packages (source clones, src/pkg dirs, built packages)
 .installation/arch-packages/**/src/
