@@ -38,10 +38,13 @@ dots/.config/hypr/monitors.lua
 # and must name the directory itself (git never descends into an excluded dir).
 .claude/
 !/dots/.claude/
-# ...but of that config, track only the preferences and the statusline script.
-# settings.json, skills/ and the herdr-managed hooks are machine state.
+# ...but of that config, track only the preferences, settings and the statusline
+# script. settings.json churns (Claude Code rewrites it on /model, /effort and
+# "always allow") -- accepted, so every machine shares one config.
+# skills/ and the herdr-managed hooks are machine state.
 /dots/.claude/*
 !/dots/.claude/CLAUDE.md
+!/dots/.claude/settings.json
 !/dots/.claude/hooks/
 /dots/.claude/hooks/*
 !/dots/.claude/hooks/herdr-statusbar.py
