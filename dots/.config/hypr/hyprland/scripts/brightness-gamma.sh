@@ -35,12 +35,25 @@ clamp_gamma() {
     }"
 }
 
+# FIXME(Hyprland 0.57.1): per-output gamma is NOT settable any more.
+#   `hyprctl keyword` was removed, and there is no Lua equivalent: HL.MonitorSpec in
+#   /usr/share/hypr/stubs/hl.meta.lua has no gamma field, and `hyprctl getoption output:<mon>:gamma`
+#   answers "no such option". Instead of silently doing nothing, fail loudly here.
+#   Possible replacement: hyprsunset's IPC (`hyprctl hyprsunset gamma <percent>`), not wired up yet.
+gamma_unsupported() {
+    local msg="gamma: per-output gamma ($1) is not supported by Hyprland 0.57.1 (no hyprctl keyword, no Lua option)"
+    echo "$0: $msg" >&2
+    command -v notify-send >/dev/null && notify-send -u critical "Gamma unavailable" "$msg"
+    exit 1
+}
 set_gamma() {
     local value="$1"
-    hyprctl keyword output:eDP-1:gamma "$value"
-    hyprctl keyword output:DP-3:gamma "$value" 2>/dev/null
-    hyprctl keyword output:DP-4:gamma "$value" 2>/dev/null
-    hyprctl keyword output:HDMI-A-1:gamma "$value" 2>/dev/null
+    gamma_unsupported "$value"
+    # Old hyprlang-era calls, kept for reference (they now fail with "unknown request"):
+    # hyprctl keyword output:eDP-1:gamma "$value"
+    # hyprctl keyword output:DP-3:gamma "$value" 2>/dev/null
+    # hyprctl keyword output:DP-4:gamma "$value" 2>/dev/null
+    # hyprctl keyword output:HDMI-A-1:gamma "$value" 2>/dev/null
 }
 
 case "$1" in

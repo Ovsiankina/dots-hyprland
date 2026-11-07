@@ -20,15 +20,26 @@ clamp() {
 }
 
 # Set gamma for all monitors
+# FIXME(Hyprland 0.57.1): per-output gamma is NOT settable any more.
+#   `hyprctl keyword` was removed, and there is no Lua equivalent: HL.MonitorSpec in
+#   /usr/share/hypr/stubs/hl.meta.lua has no gamma field, and `hyprctl getoption output:<mon>:gamma`
+#   answers "no such option". Instead of silently doing nothing, fail loudly here.
+#   Possible replacement: hyprsunset's IPC (`hyprctl hyprsunset gamma <percent>`), not wired up yet.
+gamma_unsupported() {
+    local msg="gamma: per-output gamma ($1) is not supported by Hyprland 0.57.1 (no hyprctl keyword, no Lua option)"
+    echo "$0: $msg" >&2
+    command -v notify-send >/dev/null && notify-send -u critical "Gamma unavailable" "$msg"
+    exit 1
+}
 set_gamma() {
     local value="$1"
     local clamped=$(clamp "$value")
-    # Apply to primary monitor
-    hyprctl keyword output:eDP-1:gamma "$clamped"
-    # Apply to other monitors if they exist
-    hyprctl keyword output:DP-3:gamma "$clamped" 2>/dev/null
-    hyprctl keyword output:DP-4:gamma "$clamped" 2>/dev/null
-    hyprctl keyword output:HDMI-A-1:gamma "$clamped" 2>/dev/null
+    gamma_unsupported "$clamped"
+    # Old hyprlang-era calls, kept for reference (they now fail with "unknown request"):
+    # hyprctl keyword output:eDP-1:gamma "$clamped"
+    # hyprctl keyword output:DP-3:gamma "$clamped" 2>/dev/null
+    # hyprctl keyword output:DP-4:gamma "$clamped" 2>/dev/null
+    # hyprctl keyword output:HDMI-A-1:gamma "$clamped" 2>/dev/null
 }
 
 # Get current gamma (rough estimate from first available)

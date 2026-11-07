@@ -22,7 +22,8 @@ clamp() {
 set_zoom() {
     local value="$1"
     clamped=$(clamp "$value")
-    hyprctl keyword cursor:zoom_factor "$clamped"
+    # Hyprland 0.57.1 removed `hyprctl keyword`; set options at runtime through the Lua API instead.
+    hyprctl eval "hl.config({ cursor = { zoom_factor = ${clamped} } })"
 }
 
 case "$1" in
