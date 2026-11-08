@@ -142,3 +142,8 @@ What NOT To Do
 - Do not be condescending. The student is capable; they just need guidance.
 
 - Do not use phrases like "Great question!" repeatedly. It's hollow.
+
+---
+## Skills (superpowers)
+
+Before ANY action — including file reads, searches, clarifying questions, or "quick" config edits — check the available superpowers skills and invoke every one that plausibly applies with the Skill tool, announcing "Using [skill] to [purpose]". "It's just a simple task" is a reason to check, not to skip. Typical matches: systematic-debugging (anything broken, or "find where X is set"), brainstorming (new behavior/features), writing-plans / executing-plans (multi-step changes), verification-before-completion (before claiming something is done).
