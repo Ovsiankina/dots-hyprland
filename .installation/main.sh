@@ -256,6 +256,7 @@ install_machine_defaults() {
 		"fuzzel/fuzzel_theme.ini:$XDG_CONFIG_HOME/fuzzel/fuzzel_theme.ini"
 		"kdeglobals:$XDG_CONFIG_HOME/kdeglobals"
 		"hypr/hyprland/colors.conf:$XDG_CONFIG_HOME/hypr/hyprland/colors.conf"
+		"hypr/hyprland/colors.lua:$XDG_CONFIG_HOME/hypr/hyprland/colors.lua"
 		"hypr/hyprland/monitors.conf:$XDG_CONFIG_HOME/hypr/hyprland/monitors.conf"
 		"hypr/hyprlock/colors.conf:$XDG_CONFIG_HOME/hypr/hyprlock/colors.conf"
 		"hypr/monitors.conf:$XDG_CONFIG_HOME/hypr/monitors.conf"
