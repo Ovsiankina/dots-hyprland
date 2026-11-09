@@ -99,7 +99,8 @@
   "enabledPlugins": {
     "rust-analyzer-lsp@claude-plugins-official": true,
     "vibe-annotations@local": true,
-    "frontend-design@claude-plugins-official": true
+    "frontend-design@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true
   },
   "feedbackDrafts": "off",
   "effortLevel": "high",
@@ -114,7 +115,7 @@
       "effortLevel": "high"
     },
     "claude-opus-5-5": {
-      "effortLevel": "low"
+      "effortLevel": "xhigh"
     },
     "claude-fable-5-1": {
       "effortLevel": "high"
